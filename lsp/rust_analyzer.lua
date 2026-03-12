@@ -1,10 +1,8 @@
-return function(mason_bin)
-  return {
-    name = "rust_analyzer",
-    cmd = { mason_bin .. "rust-analyzer" },
-    filetypes = { "rust" },
-    root_patterns = { "Cargo.toml", "Cargo.lock", ".git" },
-    settings = {
+return {
+  cmd = { "rust-analyzer" },
+  filetypes = { "rust" },
+  root_patterns = { "Cargo.toml", "Cargo.lock", ".git" },
+  settings = {
     ['rust-analyzer'] = {
       lens = {
         debug = { enable = true },
@@ -21,5 +19,4 @@ return function(mason_bin)
       },
     },
   },
-  }
-end
+}

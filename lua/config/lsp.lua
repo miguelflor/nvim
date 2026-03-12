@@ -1,6 +1,3 @@
-local utils = require("utils")
-local server_configs = require("config.lsp.servers")
-
 local M = {}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -13,7 +10,13 @@ local function on_attach(_, bufnr)
   require("config.keymaps").lsp(bufnr)
 end
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local lsp_servers = {
+  "lua_ls", "rust_analyzer", "tsserver", "docker_language_server", "pest_ls",
+  "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
+  "ocamllsp", "arduino_language_server"
+}
+
+local signs = { Error = "󰅚", Warn = "󰀪", Hint = "󰌶", Info = "󰋽" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -39,33 +42,12 @@ function M.setup()
   vim.lsp.handlers["textDocument/signatureHelp"] =
       vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-  local group = vim.api.nvim_create_augroup("UserNativeLsp", { clear = true })
-  for name, server in pairs(server_configs) do
-    vim.api.nvim_create_autocmd("FileType", {
-      group = group,
-      pattern = server.filetypes,
-      callback = function(args)
-        local bufnr = args.buf
-        local existing = vim.lsp.get_clients({ bufnr = bufnr, name = name });
-        if existing and #existing > 0 then
-          return
-        end
+  vim.lsp.enable(lsp_servers)
 
-        if vim.fn.executable(server.cmd[1]) == 0 then
-          vim.notify(("LSP %s not available"):format(name), vim.log.levels.WARN)
-          return
-        end
-
-        local root_dir = utils.root_dir(bufnr, server.root_patterns or { ".git" })
-        local config = vim.tbl_deep_extend("force", server, {
-          name = name,
-          root_dir = root_dir,
-          on_attach = on_attach,
-          capabilities = capabilities,
-        })
-        config.root_patterns = nil
-        vim.lsp.start(config)
-      end,
+  for _, server_name in ipairs(lsp_servers) do
+    vim.lsp.config(server_name, {
+      on_attach = on_attach,
+      capabilities = capabilities,
     })
   end
 end

@@ -1,5 +1,3 @@
-return function (mason_bin)
-  ---@type vim.lsp.Config
 return {
   name = "docker_language_server",
   cmd = { 'docker-language-server', 'start', '--stdio' },
@@ -23,5 +21,3 @@ return {
     'docker-bake.override.hcl',
   },
 }
-  
-end
