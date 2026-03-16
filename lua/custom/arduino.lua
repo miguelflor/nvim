@@ -1,29 +1,5 @@
 local M = {}
 
-local notify = require("notify")
-
--- vim.lsp.handlers['$/progress'] = function(_, result, ctx)
---   local value = result.value
---   if not value or value.kind == 'end' then
---     notify('Indexing complete ✓', vim.log.levels.INFO, {
---       title = 'Arduino LSP',
---       timeout = 2000,
---     })
---     return
---   end
---
---   if value.kind == 'report' and value.percentage then
---     notify(
---       string.format('Indexing: %s (%d%%)', value.message or '', value.percentage),
---       vim.log.levels.INFO,
---       {
---         title = 'Arduino LSP',
---         replace = 'last', -- replaces the previous notification instead of stacking
---         timeout = false,  -- don't auto-dismiss while indexing
---       }
---     )
---   end
--- end
 
 function M.arduino_runner()
   local notify = require("notify")
