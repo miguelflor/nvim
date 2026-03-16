@@ -42,7 +42,7 @@ function M.setup()
   map("n", "<C-k>", "<C-w>k", "Focus window above")
   map("n", "<C-l>", "<C-w>l", "Focus window right")
 
-  map('n', '<leader>st', ':7split | term<CR>',"Small Terminal")
+  map('n', '<leader>st', ':7split | term<CR>', "Small Terminal")
   map('t', '<Esc>', [[<C-\><C-n>]])
 
   map("n", "<leader>qs", "<cmd>SessionSave<CR>", "Save session")
@@ -73,8 +73,35 @@ function M.setup()
       end
     end, string.format("Harpoon file %d", i))
   end
-
 end
+
+function M.jdtls_debug()
+  local jdtls = require("jdtls")
+  map("n","<leader>tm", jdtls.test_nearest_method, "Java: Test Nearest Method")
+  map("n","<leader>tc", jdtls.test_class, "Java: Test Class")
+  map("n","<leader>td", function()   -- debug nearest test
+    jdtls.test_nearest_method({ config = { noDebug = false } })
+  end, "Java: Debug Nearest Method")
+end
+
+function M.dap()
+  local dap = require("dap")
+  local dapui = require("dapui")
+
+  map("n","<F5>", dap.continue, "DAP: Continue")
+  map("n","<F10>", dap.step_over, "DAP: Step Over")
+  map("n","<F11>", dap.step_into, "DAP: Step Into")
+  map("n","<F12>", dap.step_out, "DAP: Step Out")
+  map("n","<leader>b", dap.toggle_breakpoint, "DAP: Toggle Breakpoint")
+  map("n","<leader>B", function()
+    dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+  end, "DAP: Conditional Breakpoint")
+  map("n","<leader>du", dapui.toggle, "DAP: Toggle UI")
+  map("n","<leader>de", dapui.eval, "DAP: Eval expression")
+  map("n","<leader>dr", dap.repl.open, "DAP: Open REPL")
+  map("n","<leader>dl", dap.run_last, "DAP: Run Last")
+  map("n","<leader>dx", dap.terminate, "DAP: Terminate")
+end 
 
 function M.lsp(bufnr)
   local function buf_map(mode, lhs, rhs, desc)

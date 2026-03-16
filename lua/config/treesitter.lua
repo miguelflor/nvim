@@ -9,6 +9,7 @@ function M.setup()
   configs.setup({
     ensure_installed = {
       "lua",
+      "java",
       "vim",
       "vimdoc",
       "bash",

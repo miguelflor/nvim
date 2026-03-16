@@ -1,10 +1,8 @@
 local M = {}
 
 function M.setup()
-  local ok, mason = pcall(require, "mason")
-  if not ok then
-    return
-  end
+  local mason = require "mason"
+  local mason_dap = require "mason-nvim-dap"
 
   mason.setup({
     ui = {
@@ -14,6 +12,16 @@ function M.setup()
         package_pending = "",
         package_uninstalled = "",
       },
+    },
+  })
+
+  mason_dap.setup({
+    ensure_installed = { "javadbg", "javatest" },
+    automatic_installation = true,
+    handlers = {
+      function(config)
+        require("mason-nvim-dap").default_setup(config)
+      end,
     },
   })
 

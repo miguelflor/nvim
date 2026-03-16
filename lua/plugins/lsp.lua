@@ -49,11 +49,12 @@ return function(use)
     requires = {
       "nvim-treesitter/nvim-treesitter"
     },
-    config = function ()
+    config = function()
       require("pest-vim").setup()
     end
 
   })
 
-
+  use 'mfussenegger/nvim-dap'
+  use "jay-babu/mason-nvim-dap.nvim"
 end

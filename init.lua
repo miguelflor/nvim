@@ -6,6 +6,7 @@ keymaps.setup()
 require("config.autocmds")
 require("plugins")
 require("custom")
+require("config.dap")
 
 local ok, lsp = pcall(require, "config.lsp")
 if ok then
