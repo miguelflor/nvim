@@ -48,22 +48,23 @@ function M.arduino_monitor()
     end
   end
 
-  -- Open a horizontal split at the bottom
-  vim.cmd("botright 15split")
-  local buf = vim.api.nvim_get_current_buf()
-  local win = vim.api.nvim_get_current_win()
+  -- Open a vertical split on the right
+  vim.cmd("botright 40vsplit")
+  local buf                   = vim.api.nvim_get_current_buf()
+  local win                   = vim.api.nvim_get_current_win()
 
   -- Tag the buffer so we can find it later
   vim.b[buf]._arduino_monitor = true
 
   -- Window aesthetics
-  vim.wo[win].number         = false
-  vim.wo[win].relativenumber = false
-  vim.wo[win].signcolumn     = "no"
-  vim.wo[win].statusline     = " 󰻕  Arduino Monitor  (q to close)"
+  vim.wo[win].number          = false
+  vim.wo[win].relativenumber  = false
+  vim.wo[win].signcolumn      = "no"
+  vim.wo[win].winfixwidth     = true
+  vim.wo[win].statusline      = " 󰻕  Arduino Monitor  (q to close)"
 
   -- Start the monitor in a terminal
-  local term_id = vim.fn.termopen({ "arduino-cli", "monitor" }, {
+  local term_id               = vim.fn.termopen({ "arduino-cli", "monitor" }, {
     on_exit = function(_, code)
       vim.schedule(function()
         notify("Arduino: monitor stopped (exit " .. code .. ")", "info", {
@@ -104,7 +105,7 @@ function M.arduino_monitor()
 end
 
 -- Keymaps
-vim.keymap.set('n', '<leader>au', M.arduino_runner,  { desc = "Arduino Upload" })
+vim.keymap.set('n', '<leader>au', M.arduino_runner, { desc = "Arduino Upload" })
 vim.keymap.set('n', '<leader>am', M.arduino_monitor, { desc = "Arduino Monitor" })
 
 return M
