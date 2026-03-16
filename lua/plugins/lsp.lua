@@ -14,7 +14,19 @@ return function(use)
   })
 
   use({
+    "mfussenegger/nvim-dap",
+  })
+  
+  use({
+    "rcarriga/nvim-dap-ui",
+    requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
+  })
+
+  use("jay-babu/mason-nvim-dap.nvim")
+
+  use({
     "mfussenegger/nvim-jdtls",
+    requires = {"mfussenegger/nvim-dap"},
     ft = { "java" },
   })
 
@@ -54,7 +66,4 @@ return function(use)
     end
 
   })
-
-  use 'mfussenegger/nvim-dap'
-  use "jay-babu/mason-nvim-dap.nvim"
 end

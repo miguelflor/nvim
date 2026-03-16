@@ -47,6 +47,4 @@ return function(use)
   --
   use 'rcarriga/nvim-notify'
 
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
-
 end

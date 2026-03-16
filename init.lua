@@ -6,7 +6,7 @@ keymaps.setup()
 require("config.autocmds")
 require("plugins")
 require("custom")
-require("config.dap")
+require("config.dap").setup()
 
 local ok, lsp = pcall(require, "config.lsp")
 if ok then
@@ -14,4 +14,3 @@ if ok then
 else 
   vim.notify("LSP config error: " .. lsp, vim.log.levels.ERROR)
 end
-  
