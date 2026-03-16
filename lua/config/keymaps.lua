@@ -47,15 +47,18 @@ function M.setup()
 
   map("n", "<leader>qs", "<cmd>SessionSave<CR>", "Save session")
   map("n", "<leader>qr", "<cmd>SessionRestore<CR>", "Restore session")
+  map("n", "<leader>qq", "<cmd>qa<CR>", "Quit Neovim")
 
-  map("n", "<leader>ha", function()
+  map("v", "<leader>y", '"+y', "Copy selection to clipboard")
+  map("n", "<leader>Y", '<cmd>%y+<CR>', "Copy buffer to clipboard")
+
+  -- Harpoon
+  map("n", "<leader>h", function()
     local ok, mark = pcall(require, "harpoon.mark")
     if ok then
       mark.add_file()
     end
   end, "Harpoon add")
-  map("v", "<leader>y", '"+y', "Copy selection to clipboard")
-  map("n", "<leader>Y", '<cmd>%y+<CR>', "Copy buffer to clipboard")
   map("n", "<leader>hh", function()
     local ok, ui = pcall(require, "harpoon.ui")
     if ok then
@@ -63,7 +66,7 @@ function M.setup()
     end
   end, "Harpoon menu")
   for i = 1, 4 do
-    map("n", string.format("<leader>h%d", i), function()
+    map("n", string.format("<C-%d>", i), function()
       local ok, ui = pcall(require, "harpoon.ui")
       if ok then
         ui.nav_file(i)
@@ -71,7 +74,6 @@ function M.setup()
     end, string.format("Harpoon file %d", i))
   end
 
-  map("n", "<leader>qq", "<cmd>qa<CR>", "Quit Neovim")
 end
 
 function M.lsp(bufnr)
