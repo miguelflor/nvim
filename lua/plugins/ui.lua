@@ -37,14 +37,14 @@ return function(use)
     end,
   })
 
-  use({
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "rmd" },
-    config = function()
-      require("config.notes").render_markdown()
-    end,
-  })
-
+  -- use({
+  --   "MeanderingProgrammer/render-markdown.nvim",
+  --   ft = { "markdown", "rmd" },
+  --   config = function()
+  --     require("config.notes").render_markdown()
+  --   end,
+  -- })
+  --
   use 'rcarriga/nvim-notify'
 
 end
