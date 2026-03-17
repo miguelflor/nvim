@@ -16,17 +16,17 @@ return function(use)
   use({
     "mfussenegger/nvim-dap",
   })
-  
+
   use({
     "rcarriga/nvim-dap-ui",
-    requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
+    requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
   })
 
   use("jay-babu/mason-nvim-dap.nvim")
 
   use({
     "mfussenegger/nvim-jdtls",
-    requires = {"mfussenegger/nvim-dap"},
+    requires = { "mfussenegger/nvim-dap" },
     ft = { "java" },
   })
 
@@ -66,4 +66,15 @@ return function(use)
     end
 
   })
+  use {
+    'mistweaverco/kulala.nvim',
+    config = function()
+      require('kulala').setup({
+        global_keymaps = false,
+        global_keymaps_prefix = "<leader>R",
+        kulala_keymaps_prefix = "",
+      })
+      require("config.keymaps").kulala()
+    end
+  }
 end
