@@ -1,0 +1,11 @@
+{
+  "Enum definition": {
+    "prefix": "enum",
+    "body": [
+      "public enum ${1:TM_FILEBASE_NAME} {",
+      "\t${2:VARIANT};",
+      "}"
+    ],
+    "description": "Basic Java enum"
+  }
+}
