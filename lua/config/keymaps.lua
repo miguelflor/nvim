@@ -4,14 +4,29 @@ local function map(mode, lhs, rhs, desc)
   vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
 end
 
+local function lsp_root_run(builtin_name)
+  return function()
+    local builtin = require("telescope.builtin")
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    local root = nil
+
+    -- Use the first active client's root_dir (e.g., where pom.xml was found)
+    if clients[1] then
+      root = clients[1].config.root_dir
+    end
+
+    if root then
+      builtin[builtin_name]({ search_dirs = { root } })
+    else
+      builtin[builtin_name]() -- Fallback to current working directory
+    end
+  end
+end
+
 function M.setup()
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search")
-  map("n", "<leader>pf", function()
-    require("telescope.builtin").find_files()
-  end, "Find files")
-  map("n", "<leader>ps", function()
-    require("telescope.builtin").live_grep()
-  end, "Live grep")
+  map("n", "<leader>pf",lsp_root_run("find_files"), "Find files")
+  map("n", "<leader>ps",lsp_root_run("live_grep"), "Live grep")
   map("n", "<leader>fb", function()
     require("telescope.builtin").buffers()
   end, "List buffers")
@@ -75,11 +90,17 @@ function M.setup()
   end
 end
 
+function M.kulala()
+  map("n", "<leader>Rs", function() require("kulala").run() end, "Send request")
+  map("n", "<leader>Ra", function() require("kulala").run_all() end, "Send all requests")
+  map("n", "<leader>Rb", function() require("kulala").scratchpad() end, "Open scratchpad")
+end
+
 function M.jdtls_debug()
   local jdtls = require("jdtls")
-  map("n","<leader>tm", jdtls.test_nearest_method, "Java: Test Nearest Method")
-  map("n","<leader>tc", jdtls.test_class, "Java: Test Class")
-  map("n","<leader>td", function()   -- debug nearest test
+  map("n", "<leader>tm", jdtls.test_nearest_method, "Java: Test Nearest Method")
+  map("n", "<leader>tc", jdtls.test_class, "Java: Test Class")
+  map("n", "<leader>td", function() -- debug nearest test
     jdtls.test_nearest_method({ config = { noDebug = false } })
   end, "Java: Debug Nearest Method")
 end
@@ -88,20 +109,20 @@ function M.dap()
   local dap = require("dap")
   local dapui = require("dapui")
 
-  map("n","<F5>", dap.continue, "DAP: Continue")
-  map("n","<F10>", dap.step_over, "DAP: Step Over")
-  map("n","<F11>", dap.step_into, "DAP: Step Into")
-  map("n","<F12>", dap.step_out, "DAP: Step Out")
-  map("n","<leader>b", dap.toggle_breakpoint, "DAP: Toggle Breakpoint")
-  map("n","<leader>B", function()
+  map("n", "<F5>", dap.continue, "DAP: Continue")
+  map("n", "<F10>", dap.step_over, "DAP: Step Over")
+  map("n", "<F11>", dap.step_into, "DAP: Step Into")
+  map("n", "<F12>", dap.step_out, "DAP: Step Out")
+  map("n", "<leader>b", dap.toggle_breakpoint, "DAP: Toggle Breakpoint")
+  map("n", "<leader>B", function()
     dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
   end, "DAP: Conditional Breakpoint")
-  map("n","<leader>du", dapui.toggle, "DAP: Toggle UI")
-  map("n","<leader>de", dapui.eval, "DAP: Eval expression")
-  map("n","<leader>dr", dap.repl.open, "DAP: Open REPL")
-  map("n","<leader>dl", dap.run_last, "DAP: Run Last")
-  map("n","<leader>dx", dap.terminate, "DAP: Terminate")
-end 
+  map("n", "<leader>du", dapui.toggle, "DAP: Toggle UI")
+  map("n", "<leader>de", dapui.eval, "DAP: Eval expression")
+  map("n", "<leader>dr", dap.repl.open, "DAP: Open REPL")
+  map("n", "<leader>dl", dap.run_last, "DAP: Run Last")
+  map("n", "<leader>dx", dap.terminate, "DAP: Terminate")
+end
 
 function M.lsp(bufnr)
   local function buf_map(mode, lhs, rhs, desc)
