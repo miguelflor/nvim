@@ -27,7 +27,6 @@ function M.setup()
       "html",
       "python",
       "c",
-      "cpp",
       "regex",
     },
     highlight = { enable = true },

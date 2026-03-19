@@ -24,6 +24,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     build = ":TSUpdate",
     config = function()
       require("config.treesitter").setup()
@@ -46,13 +47,12 @@ return {
   },
   {
     dir = vim.fn.expand("~/projects/pest.nvim"),
-    ft = { "pest" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    config = function()
-      require("pest-vim").setup()
-    end,
+    config = function ()
+      require("pest-vim").setup();
+    end
   },
   {
     "mistweaverco/kulala.nvim",
