@@ -9,6 +9,8 @@ function M.setup()
   configs.setup({
     ensure_installed = {
       "lua",
+      "diff",
+      "rebase",
       "http",
       "java",
       "javadoc",
