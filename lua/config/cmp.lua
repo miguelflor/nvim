@@ -8,7 +8,7 @@ function M.setup()
 
   vim.g.vsnip_snippet_dirs = {
     vim.fn.stdpath("config") .. "/snippets", -- custom ones,
-    vim.fn.stdpath("data") .. "/site/pack/packer/start/friendly-snippets/snippets" }
+    vim.fn.stdpath("data") .. "/lazy/friendly-snippets/snippets" }
 
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))

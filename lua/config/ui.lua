@@ -27,7 +27,7 @@ function M.statusline()
   lualine.setup({
     options = {
       theme = "auto",
-      globalstatus = true,
+      globalstatus = false,
       component_separators = "",
       section_separators = "",
     },

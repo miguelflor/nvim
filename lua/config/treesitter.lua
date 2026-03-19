@@ -26,6 +26,8 @@ function M.setup()
       "javascript",
       "typescript",
       "tsx",
+      "jsx",
+      "tsx",
       "css",
       "html",
       "python",
@@ -44,11 +46,6 @@ function M.setup()
       },
     },
     playground = { enable = true },
-  })
-
-  vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'gitcommit' },
-    callback = function() vim.treesitter.start() end,
   })
 
   local parser_dir = vim.fn.stdpath("data") .. "/site/parser"

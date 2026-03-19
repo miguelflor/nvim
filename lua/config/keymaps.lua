@@ -25,8 +25,8 @@ end
 
 function M.setup()
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search")
-  map("n", "<leader>pf",lsp_root_run("find_files"), "Find files")
-  map("n", "<leader>ps",lsp_root_run("live_grep"), "Live grep")
+  map("n", "<leader>pf", lsp_root_run("find_files"), "Find files")
+  map("n", "<leader>ps", lsp_root_run("live_grep"), "Live grep")
   map("n", "<leader>fb", function()
     require("telescope.builtin").buffers()
   end, "List buffers")
@@ -43,6 +43,8 @@ function M.setup()
   map("n", "<leader>e", function()
     require("nvim-tree.api").tree.toggle({ focus = true })
   end, "Toggle tree")
+  map("v", "J", ":m '>+1<CR>gv=gv", "Move up");
+  map("v", "K", ":m '<-2<CR>gv=gv", "Mode down");
 
   map("n", "<leader>td", "<cmd>TodoTelescope<CR>", "List TODOs")
   map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle undotree")
@@ -66,6 +68,13 @@ function M.setup()
 
   map("v", "<leader>y", '"+y', "Copy selection to clipboard")
   map("n", "<leader>Y", '<cmd>%y+<CR>', "Copy buffer to clipboard")
+
+  -- Search and replaced
+  map("n", "<leader>r", function()
+    local word = vim.fn.expand("<cword>")
+    vim.api.nvim_feedkeys(":%s/" .. word .. "/g", "n", false)
+  end, "Replace word under cursor")
+
 
   -- Harpoon
   map("n", "<leader>h", function()

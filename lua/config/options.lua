@@ -1,9 +1,3 @@
--- Define a predictable adress so i can use it outside
-if vim.fn.has('linux') == 1 then
-  local v_pid = vim.fn.getpid()
-  vim.fn.serverstart('/tmp/nvim.' .. vim.env.USER .. '.' .. v_pid)
-end
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -24,10 +18,11 @@ opt.splitright = true
 opt.splitbelow = true
 opt.ignorecase = true
 opt.smartcase = true
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.tabstop = 4
+opt.softtabstop = 4
 opt.incsearch = true
+opt.hlsearch = false
 opt.expandtab = true
 opt.smartindent = true
 opt.completeopt = { "menu", "menuone", "noselect" }

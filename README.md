@@ -116,7 +116,7 @@ This configuration uses **Neovim's native LSP** without wrapper plugins like nvi
 ├── lua/
 │   ├── plugins/            # Plugin declarations (7 organized modules)
 │   │   ├── init.lua        # lazy.nvim bootstrap
-│   │   ├── core.lua        # Core plugins (packer, plenary, web-devicons)
+│   │   ├── core.lua        # Core plugins (plenary, web-devicons)
 │   │   ├── ui.lua          # UI plugins (theme, statusline, explorer, etc.)
 │   │   ├── navigation.lua  # Navigation plugins (telescope, harpoon, etc.)
 │   │   ├── editor.lua      # Editor plugins (surround, comment, autopairs, etc.)
@@ -197,7 +197,7 @@ Custom integration in `/lua/custom/arduino.lua`:
 
 ## 📦 Plugin List (44 plugins)
 
-**Core** (3): packer.nvim, plenary.nvim, nvim-web-devicons
+**Core** (3):  plenary.nvim, nvim-web-devicons
 
 **UI** (7): rose-pine (theme), lualine (statusline), nvim-tree, alpha (dashboard), markview, nui, notify
 
