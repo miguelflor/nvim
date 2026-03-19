@@ -133,9 +133,9 @@ function M.setup()
   vim.api.nvim_set_hl(0, "DapBreakpointRejected", { fg = "#888888" })
 
   -- ── Auto open/close UI with DAP session ─────────────────────────────────────
-  dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
-  dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
-  dap.listeners.before.event_exited["dapui_config"]     = function() dapui.close() end
+  -- dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+  -- dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+  -- dap.listeners.before.event_exited["dapui_config"]     = function() dapui.close() end
 
   -- ── keymaps defenitions ─────────────────────────────────────
   require("config.keymaps").dap()
