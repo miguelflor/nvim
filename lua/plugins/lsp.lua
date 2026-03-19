@@ -77,4 +77,15 @@ return function(use)
       require("config.keymaps").kulala()
     end
   }
+  use {
+    "folke/lazydev.nvim",
+    requires = { "Bilal2453/luvit-meta" },
+    config = function()
+      require("lazydev").setup({
+        library = {
+          { path = "luvit-meta/library", words = { "vim%.uv" } },
+        },
+      })
+    end,
+  }
 end
