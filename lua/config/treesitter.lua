@@ -11,6 +11,7 @@ function M.setup()
       "lua",
       "http",
       "java",
+      "javadoc",
       "vim",
       "vimdoc",
       "bash",

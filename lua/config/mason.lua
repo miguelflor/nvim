@@ -16,7 +16,7 @@ function M.setup()
   })
 
   mason_dap.setup({
-    ensure_installed = { "javadbg", "javatest" },
+    ensure_installed = { "javadbg", "javatest", "codelldb" },
     automatic_installation = true,
     handlers = {
       function(config)

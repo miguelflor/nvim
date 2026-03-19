@@ -2,6 +2,18 @@ local M = {}
 
 function M.dap_java()
   local dap = require("dap")
+  local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/")
+  local codelldb_path = mason_path .. "adapter/codelldb"
+  local liblldb_path = mason_path .. "lldb/lib/liblldb.so" -- .dylib on macOS
+
+  dap.adapters.codelldb = {
+    type = "server",
+    port = "${port}",
+    executable = {
+      command = codelldb_path,
+      args = { "--port", "${port}" },
+    },
+  }
 
   dap.configurations.java = {
     {
@@ -9,6 +21,38 @@ function M.dap_java()
       request = 'launch',
       name = 'Debug (Launch) - Current File',
       args = function() return vim.fn.input('Args: ') end,
+    },
+  }
+
+  dap.configurations.rust = {
+    {
+      name = "Launch binary",
+      type = "codelldb",
+      request = "launch",
+      program = function()
+        -- Builds the project and returns the binary path
+        vim.fn.system("cargo build 2>&1")
+        local crate = vim.fn.trim(vim.fn.system(
+        "cargo metadata --no-deps --format-version 1 | python3 -c \"import sys,json; print(json.load(sys.stdin)['packages'][0]['name'])\""))
+        return vim.fn.getcwd() .. "/target/debug/" .. crate
+      end,
+      cwd = "${workspaceFolder}",
+      stopOnEntry = false,
+      args = {},
+    },
+    {
+      name = "Launch binary (with args)",
+      type = "codelldb",
+      request = "launch",
+      program = function()
+        return vim.fn.input("Path to binary: ", vim.fn.getcwd() .. "/target/debug/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+      stopOnEntry = false,
+      args = function()
+        local args = vim.fn.input("Args: ")
+        return vim.split(args, " ")
+      end,
     },
   }
 end

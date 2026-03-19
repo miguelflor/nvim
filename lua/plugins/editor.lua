@@ -76,4 +76,14 @@ return function(use)
 
   use("mbbill/undotree")
   use("mg979/vim-visual-multi")
+  use {
+    'azratul/live-share.nvim',
+    requires = { 'jbyuki/instant.nvim' },
+    config = function()
+      vim.g.instant_username = "your-username"
+      require("live-share").setup({
+        -- Add your configuration here
+      })
+    end
+  }
 end

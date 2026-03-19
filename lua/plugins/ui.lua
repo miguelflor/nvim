@@ -36,7 +36,7 @@ return function(use)
       require("config.notes").markview()
     end,
   })
-
+  --
   -- use({
   --   "MeanderingProgrammer/render-markdown.nvim",
   --   ft = { "markdown", "rmd" },
@@ -44,7 +44,7 @@ return function(use)
   --     require("config.notes").render_markdown()
   --   end,
   -- })
-  --
+
   use 'rcarriga/nvim-notify'
 
 end
