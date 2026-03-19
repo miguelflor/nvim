@@ -26,6 +26,10 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ":TSUpdate",
+    init = function()
+      -- Must add trailing slash to match nvim-treesitter's health check expectation
+      vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/site/")
+    end,
     config = function()
       require("config.treesitter").setup()
     end,

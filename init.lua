@@ -1,4 +1,3 @@
-vim.opt.runtimepath:prepend(vim.fn.stdpath("data") .. "/site")
 require("config.options")
 
 local keymaps = require("config.keymaps")

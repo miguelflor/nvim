@@ -10,6 +10,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:prepend(vim.fn.stdpath("data").."/site")
 
 local lazy_spec = {
   require("plugins.core"),
@@ -25,5 +26,10 @@ require("lazy").setup(lazy_spec, {
   change_detection = {
     enabled = true,
     notify = true,
+  },
+  performance = {
+    rtp = {
+      reset = false,
+    },
   },
 })

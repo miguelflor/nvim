@@ -6,7 +6,10 @@ function M.setup()
     return
   end
 
+  local parser_install_dir = vim.fn.stdpath("data") .. "/site"
+
   configs.setup({
+    parser_install_dir = parser_install_dir,
     ensure_installed = {
       "lua",
       "diff",
@@ -48,7 +51,7 @@ function M.setup()
     playground = { enable = true },
   })
 
-  local parser_dir = vim.fn.stdpath("data") .. "/site/parser"
+  local parser_dir = parser_install_dir .. "/parser"
   for _, lang in ipairs({ "flux", "menhir", "ocaml_interface" }) do
     local so = string.format("%s/%s.so", parser_dir, lang)
     if vim.fn.filereadable(so) == 1 then
