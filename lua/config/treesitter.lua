@@ -9,6 +9,9 @@ function M.setup()
   configs.setup({
     ensure_installed = {
       "lua",
+      "diff",
+      "git_rebase",
+      "gitcommit",
       "http",
       "java",
       "javadoc",
@@ -26,10 +29,7 @@ function M.setup()
       "css",
       "html",
       "python",
-      "java",
       "c",
-      "cpp",
-      "ocaml",
       "regex",
     },
     highlight = { enable = true },
@@ -44,6 +44,11 @@ function M.setup()
       },
     },
     playground = { enable = true },
+  })
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'gitcommit' },
+    callback = function() vim.treesitter.start() end,
   })
 
   local parser_dir = vim.fn.stdpath("data") .. "/site/parser"

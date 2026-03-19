@@ -96,7 +96,7 @@ function M.dashboard()
     dashboard.button("c", "  Edit config", ":cd ~/.config/nvim | e init.lua<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),
   }
-  dashboard.section.footer.val = "Packer · Mason · Native LSP"
+  dashboard.section.footer.val = "Lazy · Mason · Native LSP"
 
   alpha.setup(dashboard.config)
 end

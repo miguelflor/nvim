@@ -1,6 +1,6 @@
 # Neovim Configuration
 
-A modern, feature-rich Neovim IDE configuration using **native LSP** (Neovim 0.10+) with support for 14+ programming languages, advanced debugging, git workflows, and Arduino development.
+A modern, feature-rich Neovim IDE configuration using **native LSP** (Neovim 0.10+) and **lazy.nvim** plugin manager, with support for 14+ programming languages, advanced debugging, git workflows, and Arduino development.
 
 ## 🚀 Features
 
@@ -111,46 +111,49 @@ This configuration uses **Neovim's native LSP** without wrapper plugins like nvi
 
 ```
 ~/.config/nvim/
-├── init.lua              # Entry point
+├── init.lua                # Entry point
+├── lazy-lock.json          # Plugin lock file (lazy.nvim)
 ├── lua/
-│   ├── plugins.lua       # Packer setup
-│   ├── plugins/          # Plugin declarations (core, lsp, ui, etc.)
-│   ├── config/           # Feature configurations
-│   │   ├── lsp.lua       # Native LSP configuration
-│   │   ├── lsp/          # Language-specific LSP setup (jdtls, null-ls)
-│   │   ├── keymaps.lua   # All keybindings
-│   │   ├── options.lua   # Vim options
-│   │   ├── cmp.lua       # Completion setup
-│   │   ├── dap.lua       # Debugging configuration
+│   ├── plugins/            # Plugin declarations (7 organized modules)
+│   │   ├── init.lua        # lazy.nvim bootstrap
+│   │   ├── core.lua        # Core plugins (packer, plenary, web-devicons)
+│   │   ├── ui.lua          # UI plugins (theme, statusline, explorer, etc.)
+│   │   ├── navigation.lua  # Navigation plugins (telescope, harpoon, etc.)
+│   │   ├── editor.lua      # Editor plugins (surround, comment, autopairs, etc.)
+│   │   ├── git.lua         # Git plugins (gitsigns, fugitive, etc.)
+│   │   ├── ai.lua          # AI plugins (codecompanion)
+│   │   └── lsp.lua         # LSP/dev plugins (mason, treesitter, dap, etc.)
+│   ├── config/             # Feature configurations
+│   │   ├── lsp.lua         # Native LSP configuration
+│   │   ├── lsp/            # Language-specific LSP setup (jdtls, null-ls)
+│   │   ├── keymaps.lua     # All keybindings
+│   │   ├── options.lua     # Vim options
+│   │   ├── cmp.lua         # Completion setup
+│   │   ├── dap.lua         # Debugging configuration
 │   │   └── ...
-│   ├── custom/           # Custom user code (Arduino, etc.)
-│   ├── cameleer/         # Custom navigation plugin
-│   └── utils.lua         # Utility functions
-├── lsp/                  # Native LSP server configurations
+│   ├── custom/             # Custom user code (Arduino, etc.)
+│   ├── cameleer/           # Custom navigation plugin
+│   └── utils.lua           # Utility functions
+├── lsp/                    # Native LSP server configurations
 │   ├── lua_ls.lua
 │   ├── rust_analyzer.lua
 │   ├── tsserver.lua
 │   ├── pyright.lua
 │   ├── clangd.lua
 │   └── ...
-├── ftplugin/             # Filetype-specific setup
-│   ├── java.lua          # Java configuration (jdtls)
-│   └── lua.lua           # Lua configuration
-└── plugin/               # Compiled Packer specs
-    └── packer_compiled.lua
+└── ftplugin/               # Filetype-specific setup
+    ├── java.lua            # Java configuration (jdtls)
+    └── lua.lua             # Lua configuration
 ```
 
 ## 🔧 Installation
 
 1. **Clone or copy** this configuration to `~/.config/nvim/`
 2. **Install Neovim 0.10+** – Required for native LSP API
-3. **Install Packer** – Plugin manager
-   ```bash
-   git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-   ```
-4. **Start Neovim** and run `:PackerSync` to install all plugins
-5. **Install language servers** via Mason (`:Mason` command) or manually
+3. **Start Neovim** – lazy.nvim auto-installs on first run
+4. **Install language servers** via Mason (`:Mason` command) or manually
+
+lazy.nvim handles all plugin installation, caching, and dependency management automatically.
 
 ## 🎯 Configuration Highlights
 
@@ -192,24 +195,27 @@ Custom integration in `/lua/custom/arduino.lua`:
 - Monitor serial output
 - Language server support for `.ino` files
 
-## 📦 Plugin List (40+ plugins)
+## 📦 Plugin List (44 plugins)
 
-**Core**: packer.nvim, plenary.nvim, nvim-web-devicons
-**UI**: rose-pine (theme), lualine (statusline), nvim-tree, alpha (dashboard), nui, notify
-**Navigation**: telescope, harpoon, project.nvim, auto-session
-**Editing**: surround.nvim, comment.nvim, autopairs, colorizer, todo-comments
-**LSP & Completion**: nvim-cmp, mason, nvim-treesitter, nvim-jdtls, none-ls
-**Debugging**: nvim-dap, nvim-dap-ui, mason-nvim-dap
-**Git**: gitsigns, fugitive, rhubarb, mini.diff
-**AI**: codecompanion.nvim
-**Utilities**: undotree, visual-multi, which-key, auto-save, neoscroll, cutlass
+**Core** (3): packer.nvim, plenary.nvim, nvim-web-devicons
+
+**UI** (7): rose-pine (theme), lualine (statusline), nvim-tree, alpha (dashboard), markview, nui, notify
+
+**Navigation** (5): telescope, harpoon, project.nvim, auto-session, cameleer (custom)
+
+**Editing** (13): comment.nvim, surround.nvim, colorizer, todo-comments, autopairs, ts-autotag, which-key, auto-save, cutlass, neoscroll, undotree, visual-multi, live-share
+
+**Git** (4): gitsigns, mini.diff, fugitive, rhubarb
+
+**AI** (1): codecompanion.nvim
+
+**LSP & Dev** (15): mason, none-ls, nvim-dap, dap-ui, mason-nvim-dap, jdtls, treesitter, nvim-cmp, pest.nvim (custom), kulala, lazydev
 
 ## ⚙️ Requirements
 
 - **Neovim**: 0.10+ (for native LSP API)
-- **Packer.nvim**: Plugin manager
+- **Git**: For lazy.nvim plugin installation and git integration
 - **Python**: Required for treesitter and some plugins
-- **Git**: For plugin installation and git integration
 - **Language Servers**: Installed via Mason (`:Mason`)
 - **Node.js**: For TypeScript/JavaScript language server and others
 - Optional: **arduino-cli** for Arduino support, **OPENAI_API_KEY** for CodeCompanion
@@ -228,9 +234,9 @@ Custom integration in `/lua/custom/arduino.lua`:
 3. Call `:Mason` to install the server
 
 ### Adding a Plugin
-1. Declare in `/lua/plugins/` (e.g., `editing.lua`, `lsp.lua`)
+1. Declare in `/lua/plugins/` (core, ui, navigation, editor, git, ai, or lsp modules)
 2. Add configuration in `/lua/config/` if needed
-3. Run `:PackerSync`
+3. Restart neovim or run `:Lazy install`
 
 ### Custom Keymaps
 Edit `/lua/config/keymaps.lua` and add your mappings following the existing structure.
@@ -238,10 +244,13 @@ Edit `/lua/config/keymaps.lua` and add your mappings following the existing stru
 ## 📝 Notes
 
 - **Leader key**: `<Space>` (spacebar)
+- **Plugin Manager**: lazy.nvim (auto-installing, auto-updating, fast)
+- **Plugin Lock File**: `lazy-lock.json` tracks exact versions (commit to version control)
 - **Auto-save** is enabled by default
 - **Sessions** are saved automatically (toggle with `<leader>q`s/r)
 - **Persistent undo** stored in `~/.local/state/nvim/undo/`
 - **Relative line numbers** enabled for easier navigation
+- **Plugins installed to**: `~/.local/share/nvim/lazy/` (managed by lazy.nvim)
 
 ## 🤝 Contributing
 

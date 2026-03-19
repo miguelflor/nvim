@@ -1,48 +1,38 @@
-return function(use)
-  use({
+return {
+  {
     "williamboman/mason.nvim",
     config = function()
       require("config.mason").setup()
     end,
-  })
-
-  use({
+  },
+  {
     "nvimtools/none-ls.nvim",
     config = function()
       require("config.lsp").setup_null_ls()
     end,
-  })
-
-  use({
-    "mfussenegger/nvim-dap",
-  })
-
-  use({
+  },
+  "mfussenegger/nvim-dap",
+  {
     "rcarriga/nvim-dap-ui",
-    requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-  })
-
-  use("jay-babu/mason-nvim-dap.nvim")
-
-  use({
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+  },
+  "jay-babu/mason-nvim-dap.nvim",
+  {
     "mfussenegger/nvim-jdtls",
-    requires = { "mfussenegger/nvim-dap" },
+    dependencies = { "mfussenegger/nvim-dap" },
     ft = { "java" },
-  })
-
-  use({
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+    lazy = false,
+    build = ":TSUpdate",
     config = function()
       require("config.treesitter").setup()
     end,
-  })
-
-  use("nvim-treesitter/playground")
-
-  use({
+  },
+  {
     "hrsh7th/nvim-cmp",
-    requires = {
+    dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -54,32 +44,30 @@ return function(use)
     config = function()
       require("config.cmp").setup()
     end,
-  })
-
-  use({
-    '~/projects/pest.nvim',
-    requires = {
-      "nvim-treesitter/nvim-treesitter"
+  },
+  {
+    dir = vim.fn.expand("~/projects/pest.nvim"),
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
     },
-    config = function()
-      require("pest-vim").setup()
+    config = function ()
+      require("pest-vim").setup();
     end
-
-  })
-  use {
-    'mistweaverco/kulala.nvim',
+  },
+  {
+    "mistweaverco/kulala.nvim",
     config = function()
-      require('kulala').setup({
+      require("kulala").setup({
         global_keymaps = false,
         global_keymaps_prefix = "<leader>R",
         kulala_keymaps_prefix = "",
       })
       require("config.keymaps").kulala()
-    end
-  }
-  use {
+    end,
+  },
+  {
     "folke/lazydev.nvim",
-    requires = { "Bilal2453/luvit-meta" },
+    dependencies = { "Bilal2453/luvit-meta" },
     config = function()
       require("lazydev").setup({
         library = {
@@ -87,5 +75,5 @@ return function(use)
         },
       })
     end,
-  }
-end
+  },
+}

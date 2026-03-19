@@ -1,9 +1,7 @@
-return function(use)
-  use("wbthomason/packer.nvim")
-
-  use("nvim-lua/plenary.nvim")
-
-  use({
+return {
+  "wbthomason/packer.nvim",
+  "nvim-lua/plenary.nvim",
+  {
     "nvim-tree/nvim-web-devicons",
     config = function()
       local ok, devicons = pcall(require, "nvim-web-devicons")
@@ -11,6 +9,5 @@ return function(use)
         devicons.setup()
       end
     end,
-  })
-
-end
+  },
+}

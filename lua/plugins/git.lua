@@ -1,20 +1,17 @@
-return function(use)
-  use({
+return {
+  {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("config.git").gitsigns()
     end,
-  })
-
-  use({
+  },
+  {
     "echasnovski/mini.diff",
     branch = "stable",
     config = function()
       require("config.git").mini_diff()
     end,
-  })
-
-  use("tpope/vim-fugitive")
-  use 'tpope/vim-rhubarb'
-
-end
+  },
+  "tpope/vim-fugitive",
+  "tpope/vim-rhubarb",
+}
