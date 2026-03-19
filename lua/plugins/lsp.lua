@@ -46,6 +46,7 @@ return {
   },
   {
     dir = vim.fn.expand("~/projects/pest.nvim"),
+    ft = { "pest" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
