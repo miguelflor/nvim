@@ -43,8 +43,11 @@ function M.setup()
   map("n", "<leader>e", function()
     require("nvim-tree.api").tree.toggle({ focus = true })
   end, "Toggle tree")
-  map("v", "J", ":m '>+1<CR>gv=gv", "Move up");
-  map("v", "K", ":m '<-2<CR>gv=gv", "Mode down");
+
+  map("v", "<A-j>", ":m '>+1<CR>gv=gv", "Move up");
+  map("v", "<A-k>", ":m '<-2<CR>gv=gv", "Mode down");
+  map("n", "<A-j>", ":m .+1<CR>==", "Move line down")
+  map("n", "<A-k>", ":m .-2<CR>==", "Move line up")
 
   map("n", "<leader>td", "<cmd>TodoTelescope<CR>", "List TODOs")
   map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle undotree")

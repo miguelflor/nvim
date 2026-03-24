@@ -76,4 +76,6 @@ return {
       })
     end,
   },
+  -- In your plugin list
+  { "tpope/vim-abolish" }
 }
