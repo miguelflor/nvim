@@ -54,7 +54,7 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    config = function ()
+    config = function()
       require("pest-vim").setup();
     end
   },
@@ -80,4 +80,12 @@ return {
       })
     end,
   },
+  {
+    "lervag/vimtex",
+    lazy = false,
+    init = function()
+      vim.g.vimtex_view_method = "zathura" -- or "skim" on macOS, "sioyek", etc.
+      vim.g.vimtex_compiler_method = "latexmk"
+    end
+  }
 }
