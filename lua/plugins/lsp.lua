@@ -96,7 +96,9 @@ return {
     ft = "python",
     keys = { { ",v", "<cmd>VenvSelect<cr>" } },
     opts = {
-      options = {},
+      options = {
+        override_notify = false,
+      },
       search = {}
     },
   }
