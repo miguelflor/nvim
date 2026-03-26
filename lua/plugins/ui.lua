@@ -32,12 +32,17 @@ return {
       require("config.notes").markview()
     end,
   },
-  -- {
-  --   "MeanderingProgrammer/render-markdown.nvim",
-  --   ft = { "markdown", "rmd" },
-  --   config = function()
-  --     require("config.notes").render_markdown()
-  --   end,
-  -- },
   "rcarriga/nvim-notify",
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = function()
+      require("toggleterm").setup({
+        size = 50,
+        open_mapping = [[<c-\>]],
+        direction = 'vertical',
+        shade_terminals = true,
+      })
+    end
+  }
 }

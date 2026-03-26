@@ -140,6 +140,15 @@ function M.lsp(bufnr)
   local function buf_map(mode, lhs, rhs, desc)
     vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, noremap = true, silent = true, desc = desc })
   end
+  buf_map("n", "<leader>lr", function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    for _, client in ipairs(clients) do
+      vim.lsp.stop_client(client.id)
+    end
+    vim.defer_fn(function()
+      vim.cmd("edit")
+    end, 500) -- small delay to let the client fully stop before reattaching
+  end, "Restart LSP")
 
   buf_map("n", "gd", vim.lsp.buf.definition, "Goto definition")
   buf_map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")

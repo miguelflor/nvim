@@ -87,5 +87,18 @@ return {
       vim.g.vimtex_view_method = "zathura" -- or "skim" on macOS, "sioyek", etc.
       vim.g.vimtex_compiler_method = "latexmk"
     end
+  },
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = {
+      { "nvim-telescope/telescope.nvim", version = "*", dependencies = { "nvim-lua/plenary.nvim" } },
+    },
+    ft = "python",
+    keys = { { ",v", "<cmd>VenvSelect<cr>" } },
+    opts = {
+      options = {},
+      search = {}
+    },
   }
+
 }

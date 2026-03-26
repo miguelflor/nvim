@@ -6,9 +6,9 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.vimtex_view_method = "zathura"
 vim.g.vimtex_compiler_method = "latexmk"
 vim.g.vimtex_compiler_options = "-pdf -shell-escape -interaction=nonstopmode"
-vim.opt.conceallevel = 2  -- hides LaTeX syntax for cleaner editin
 local opt = vim.opt
 
+opt.textwidth = 80
 opt.termguicolors = true
 opt.number = true
 opt.relativenumber = true
