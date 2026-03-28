@@ -8,6 +8,7 @@ vim.g.vimtex_compiler_method = "latexmk"
 vim.g.vimtex_compiler_options = "-pdf -shell-escape -interaction=nonstopmode"
 local opt = vim.opt
 
+opt.swapfile = false
 opt.textwidth = 80
 opt.termguicolors = true
 opt.number = true

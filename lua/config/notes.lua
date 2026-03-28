@@ -8,18 +8,13 @@ function M.markview()
 
   markview.setup({
     modes = { "preview", "outline" },
-  })
-end
-
-function M.render_markdown()
-  local ok, render = pcall(require, "render-markdown")
-  if not ok then
-    return
-  end
-
-  render.setup({
-    filetypes = { "markdown", "rmd" },
-    heading = { enabled = true },
+    filetypes = { "markdown", "quarto", "rmd", "copilot-chat" },
+    code_blocks = {
+      enable = true,
+      style = "language",   -- or "full" if you want the background colored
+      hl = "CursorLine",    -- Uses your theme's line highlight color for the block
+    },
+    buf_ignore = {}
   })
 end
 

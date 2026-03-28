@@ -23,7 +23,6 @@ function M.statusline()
   if not ok then
     return
   end
-
   lualine.setup({
     options = {
       theme = "auto",
@@ -35,7 +34,23 @@ function M.statusline()
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff" },
       lualine_c = { { "filename", path = 1 } },
-      lualine_x = { "diagnostics", "filetype" },
+      lualine_x = {
+        -- The Copilot Model Component
+        {
+          function()
+            local chat = require("CopilotChat")
+            -- Shows the current model name
+            return "󱚥 " .. chat.config.model
+          end,
+          cond = function()
+            -- Only show if CopilotChat is actually loaded
+            return vim.bo.filetype == "copilot-chat"
+          end,
+          color = { fg = "#6272a4" }, -- A subtle purple/blue color
+        },
+        "diagnostics",
+        "filetype"
+      },
       lualine_y = { "progress" },
       lualine_z = { "location" },
     },
@@ -58,7 +73,7 @@ function M.explorer()
       custom = { ".git", "node_modules" },
     },
     update_focused_file = {
-      enable = true,     -- highlights current file
+      enable = true,       -- highlights current file
       update_root = false, -- set to true if you also want the root to change
     },
     view = {

@@ -15,10 +15,11 @@ local function lsp_root_run(builtin_name)
       root = clients[1].config.root_dir
     end
 
-    if root then
+
+    if root and vim.startswith(root, vim.fn.getcwd()) then
       builtin[builtin_name]({ search_dirs = { root } })
     else
-      builtin[builtin_name]() -- Fallback to current working directory
+      builtin[builtin_name]({ cwd = vim.fn.getcwd() }) -- Fallback to current working directory
     end
   end
 end
@@ -61,9 +62,6 @@ function M.setup()
   map("n", "<C-j>", "<C-w>j", "Focus window below")
   map("n", "<C-k>", "<C-w>k", "Focus window above")
   map("n", "<C-l>", "<C-w>l", "Focus window right")
-
-  map('n', '<leader>st', ':7split | term<CR>', "Small Terminal")
-  map('t', '<Esc>', [[<C-\><C-n>]])
 
   map("n", "<leader>qs", "<cmd>SessionSave<CR>", "Save session")
   map("n", "<leader>qr", "<cmd>SessionRestore<CR>", "Restore session")
