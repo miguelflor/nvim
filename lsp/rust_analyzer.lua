@@ -4,6 +4,12 @@ return {
   root_patterns = { "Cargo.toml", "Cargo.lock", ".git" },
   settings = {
     ['rust-analyzer'] = {
+      check = {
+        command = "clippy"
+      },
+      diagnostics = {
+        enable = true
+      },
       lens = {
         debug = { enable = true },
         enable = true,
