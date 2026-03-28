@@ -15,7 +15,7 @@ local function lsp_root_run(builtin_name)
       root = clients[1].config.root_dir
     end
 
-
+    -- root needs to subset of vim.fn.getcwd() if not somethings wrong
     if root and vim.startswith(root, vim.fn.getcwd()) then
       builtin[builtin_name]({ search_dirs = { root } })
     else
