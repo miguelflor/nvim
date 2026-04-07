@@ -11,7 +11,7 @@ local function on_attach(_, bufnr)
 end
 
 local lsp_servers = {
-  "lua_ls", "rust_analyzer", "tsserver", "docker_language_server", "pest_ls",
+  "ts_ls","vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
   "ocamllsp", "arduino_language_server"
 }

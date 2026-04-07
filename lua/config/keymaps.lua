@@ -70,6 +70,7 @@ function M.setup()
   map("v", "<leader>y", '"+y', "Copy selection to clipboard")
   map("n", "<leader>Y", '<cmd>%y+<CR>', "Copy buffer to clipboard")
 
+  map('t', '<Esc>', [[<C-\><C-n>]])
   -- Search and replaced
   map("n", "<leader>r", function()
     local word = vim.fn.expand("<cword>")
@@ -132,6 +133,12 @@ function M.dap()
   map("n", "<leader>dr", dap.repl.open, "DAP: Open REPL")
   map("n", "<leader>dl", dap.run_last, "DAP: Run Last")
   map("n", "<leader>dx", dap.terminate, "DAP: Terminate")
+  -- Override K only during a debug session
+  dap.listeners.after.event_stopped.hover_keymap = function()
+    vim.keymap.set("n", "K", function()
+      require("dap.ui.widgets").hover()
+    end, { buffer = true })
+  end
 end
 
 function M.lsp(bufnr)
@@ -151,7 +158,7 @@ function M.lsp(bufnr)
   buf_map("n", "gd", vim.lsp.buf.definition, "Goto definition")
   buf_map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
   buf_map("n", "gi", vim.lsp.buf.implementation, "Goto implementation")
-  buf_map("n", "gr", vim.lsp.buf.references, "Goto references")
+  buf_map("n", "gr", require('telescope.builtin').lsp_references, "Goto references")
   buf_map("n", "K", vim.lsp.buf.hover, "Hover")
   buf_map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
   buf_map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")

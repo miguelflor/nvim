@@ -1,26 +1,14 @@
 local M = {}
 
-function M.dap_java()
+function M.dap_rust()
   local dap = require("dap")
-  local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/")
-  local codelldb_path = mason_path .. "adapter/codelldb"
-  local liblldb_path = mason_path .. "lldb/lib/liblldb.so" -- .dylib on macOS
 
   dap.adapters.codelldb = {
     type = "server",
     port = "${port}",
     executable = {
-      command = codelldb_path,
+      command = vim.fn.exepath("codelldb"),
       args = { "--port", "${port}" },
-    },
-  }
-
-  dap.configurations.java = {
-    {
-      type = 'java',
-      request = 'launch',
-      name = 'Debug (Launch) - Current File',
-      args = function() return vim.fn.input('Args: ') end,
     },
   }
 
@@ -30,10 +18,9 @@ function M.dap_java()
       type = "codelldb",
       request = "launch",
       program = function()
-        -- Builds the project and returns the binary path
         vim.fn.system("cargo build 2>&1")
         local crate = vim.fn.trim(vim.fn.system(
-        "cargo metadata --no-deps --format-version 1 | python3 -c \"import sys,json; print(json.load(sys.stdin)['packages'][0]['name'])\""))
+          "cargo metadata --no-deps --format-version 1 | python3 -c \"import sys,json; print(json.load(sys.stdin)['packages'][0]['name'])\""))
         return vim.fn.getcwd() .. "/target/debug/" .. crate
       end,
       cwd = "${workspaceFolder}",
@@ -53,6 +40,35 @@ function M.dap_java()
         local args = vim.fn.input("Args: ")
         return vim.split(args, " ")
       end,
+    },
+    {
+      name = "Launch Tauri App",
+      type = "codelldb",
+      request = "launch",
+      program = function()
+        vim.fn.system("cargo build --manifest-path src-tauri/Cargo.toml 2>&1")
+        local handle = io.popen(
+          "cargo metadata --no-deps --format-version 1 --manifest-path src-tauri/Cargo.toml 2>/dev/null | python3 -c \"import sys,json; print(json.load(sys.stdin)['packages'][0]['name'])\"")
+        local crate = vim.fn.trim(handle:read("*a")):gsub("-", "_")
+        handle:close()
+        return vim.fn.getcwd() .. "/src-tauri/target/debug/" .. crate
+      end,
+      cwd = "${workspaceFolder}/src-tauri",
+      stopOnEntry = false,
+      args = {},
+    },
+  }
+end
+
+function M.dap_java()
+  local dap = require("dap")
+
+  dap.configurations.java = {
+    {
+      type = "java",
+      request = "launch",
+      name = "Debug (Launch) - Current File",
+      args = function() return vim.fn.input("Args: ") end,
     },
   }
 end
@@ -139,6 +155,8 @@ function M.setup()
 
   -- ── keymaps defenitions ─────────────────────────────────────
   require("config.keymaps").dap()
+
+  M.dap_rust()
 end
 
 return M

@@ -39,10 +39,20 @@ return {
     version = "*",
     config = function()
       require("toggleterm").setup({
-        size = 50,
         open_mapping = [[<c-\>]],
-        direction = 'vertical',
-        shade_terminals = true,
+        size = function(term)
+          if term.direction == "horizontal" then
+            return vim.o.lines
+          elseif term.direction == "vertical" then
+            return vim.o.columns
+          end
+        end,
+        direction = "float", -- float gives you full-screen-like feel
+        float_opts = {
+          border = "curved",
+          width = vim.o.columns,
+          height = vim.o.lines-3,
+        },
       })
     end
   }
