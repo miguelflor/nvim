@@ -11,7 +11,7 @@ local function on_attach(_, bufnr)
 end
 
 local lsp_servers = {
-  "ts_ls","vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
+  "ts_ls", "vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
   "ocamllsp", "arduino_language_server"
 }
@@ -50,6 +50,18 @@ function M.setup()
       capabilities = capabilities,
     })
   end
+end
+
+function M.setup_conform()
+  require("conform").setup({
+    formatters_by_ft = {
+      python = { "ruff_format" },
+    },
+    format_on_save = {
+      timeout_ms = 500,
+      lsp_fallback = true,
+    },
+  })
 end
 
 function M.setup_null_ls()

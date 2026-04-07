@@ -101,6 +101,12 @@ return {
       },
       search = {}
     },
-  }
-
+  },
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    config = function ()
+      require("config.lsp").setup_conform()
+    end
+  },
 }
