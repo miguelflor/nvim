@@ -134,10 +134,18 @@ function M.dap()
   map("n", "<leader>dl", dap.run_last, "DAP: Run Last")
   map("n", "<leader>dx", dap.terminate, "DAP: Terminate")
   -- Override K only during a debug session
-  dap.listeners.after.event_stopped.hover_keymap = function()
+  dap.listeners.after.event_stopped["hover_keymap"] = function()
     vim.keymap.set("n", "K", function()
       require("dap.ui.widgets").hover()
     end, { buffer = true })
+  end
+
+  dap.listeners.after.event_terminated["hover_keymap"] = function()
+    vim.keymap.del("n", "K", { buffer = true })
+  end
+
+  dap.listeners.after.event_exited["hover_keymap"] = function()
+    vim.keymap.del("n", "K", { buffer = true })
   end
 end
 

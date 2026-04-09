@@ -45,7 +45,8 @@ opt.undodir = undo_dir
 vim.filetype.add({
   extension = {
     ll = "llvm",
-    ino = "arduino"
+    ino = "arduino",
+    jsonl = "json",
   },
 })
 
