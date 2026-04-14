@@ -6,6 +6,14 @@ function M.setup()
     return
   end
 
+  local snippet_utils = require('cmp.utils.snippet')
+  local orig_parse = snippet_utils.parse
+  snippet_utils.parse = function(input)
+    local ok, result = pcall(orig_parse, input)
+    if ok then return result end
+    return setmetatable({}, { __tostring = function() return input end })
+  end
+
   vim.g.vsnip_snippet_dirs = {
     vim.fn.stdpath("config") .. "/snippets", -- custom ones,
     vim.fn.stdpath("data") .. "/lazy/friendly-snippets/snippets" }

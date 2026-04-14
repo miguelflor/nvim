@@ -119,6 +119,7 @@ end
 function M.dap()
   local dap = require("dap")
   local dapui = require("dapui")
+  local dap_conf = require("config.dap")
 
   map("n", "<F5>", dap.continue, "DAP: Continue")
   map("n", "<F10>", dap.step_over, "DAP: Step Over")
@@ -133,6 +134,7 @@ function M.dap()
   map("n", "<leader>dr", dap.repl.open, "DAP: Open REPL")
   map("n", "<leader>dl", dap.run_last, "DAP: Run Last")
   map("n", "<leader>dx", dap.terminate, "DAP: Terminate")
+  map("n", "<leader>dv", dap_conf.dap_expand_to_buffer, "DAP: View in Buffer")
   -- Override K only during a debug session
   dap.listeners.after.event_stopped["hover_keymap"] = function()
     vim.keymap.set("n", "K", function()
