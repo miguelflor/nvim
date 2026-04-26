@@ -25,3 +25,11 @@ vim.api.nvim_create_autocmd("VimResized", {
   group = group,
   command = "tabdo wincmd =",
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  pattern = "*",
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})

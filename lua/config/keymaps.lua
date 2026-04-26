@@ -107,6 +107,10 @@ function M.kulala()
   map("n", "<leader>Rb", function() require("kulala").scratchpad() end, "Open scratchpad")
 end
 
+function M.oil()
+  map("n", "-", "<CMD>Oil --float<CR>", "Open parent directory")
+end
+
 function M.jdtls_debug()
   local jdtls = require("jdtls")
   map("n", "<leader>tm", jdtls.test_nearest_method, "Java: Test Nearest Method")

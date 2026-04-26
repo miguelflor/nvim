@@ -57,6 +57,22 @@ function M.statusline()
   })
 end
 
+function M.oil()
+  require("oil").setup({
+    keymaps = {
+      ["q"] = "actions.close",
+    },
+    float = {
+      padding = 2,
+      max_width = 80,
+      max_height = 30,
+      border = "rounded"
+    },
+    default_file_explorer = true,
+  })
+  require("config.keymaps").oil()
+end
+
 function M.explorer()
   local ok, nvim_tree = pcall(require, "nvim-tree")
   if not ok then
