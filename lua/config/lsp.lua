@@ -13,7 +13,7 @@ end
 local lsp_servers = {
   "ts_ls", "vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
-  "ocamllsp", "arduino_language_server", "lemminx"
+  "ocamllsp", "arduino_language_server", "lemminx", "erlang_ls"
 }
 
 local signs = { Error = "󰅚", Warn = "󰀪", Hint = "󰌶", Info = "󰋽" }
@@ -109,10 +109,12 @@ function M.setup_conform()
     formatters_by_ft = {
       python = { "ruff_format" },
     },
-    format_on_save = {
-      timeout_ms = 500,
-      lsp_fallback = true,
-    },
+    format_on_save = function(bufnr)
+      if vim.bo[bufnr].filetype == "erlang" then
+        return nil
+      end
+      return { timeout_ms = 500, lsp_fallback = true }
+    end,
   })
 end
 
