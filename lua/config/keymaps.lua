@@ -64,7 +64,7 @@ function M.setup()
   map("n", "<C-l>", "<C-w>l", "Focus window right")
 
   map("n", "<leader>tc", "<cmd>tabclose<CR>", "Closes the current tab")
-  map("n", "<leader>tn", "<cmd>tabclose<CR>", "Opens a new Tab")
+  map("n", "<leader>tn", "<cmd>tabnew<CR>", "Opens a new Tab")
 
   map("n", "<leader>qs", "<cmd>SessionSave<CR>", "Save session")
   map("n", "<leader>qr", "<cmd>SessionRestore<CR>", "Restore session")
