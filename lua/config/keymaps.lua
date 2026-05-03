@@ -50,7 +50,7 @@ function M.setup()
   map("n", "<A-j>", ":m .+1<CR>==", "Move line down")
   map("n", "<A-k>", ":m .-2<CR>==", "Move line up")
 
-  map("n", "<leader>td", "<cmd>TodoTelescope<CR>", "List TODOs")
+  map("n", "<leader>ptd", "<cmd>TodoTelescope<CR>", "List TODOs")
   map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle undotree")
   map("n", "<leader>gs", "<cmd>Git<CR>", "Fugitive status")
 
@@ -62,6 +62,9 @@ function M.setup()
   map("n", "<C-j>", "<C-w>j", "Focus window below")
   map("n", "<C-k>", "<C-w>k", "Focus window above")
   map("n", "<C-l>", "<C-w>l", "Focus window right")
+
+  map("n", "<leader>tc", "<cmd>tabclose<CR>", "Closes the current tab")
+  map("n", "<leader>tn", "<cmd>tabclose<CR>", "Opens a new Tab")
 
   map("n", "<leader>qs", "<cmd>SessionSave<CR>", "Save session")
   map("n", "<leader>qr", "<cmd>SessionRestore<CR>", "Restore session")
