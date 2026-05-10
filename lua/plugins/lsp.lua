@@ -108,20 +108,5 @@ return {
     config = function()
       require("config.lsp").setup_conform()
     end
-  },
-  {
-    "yuukiflow/Arduino-Nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      -- Load Arduino plugin for .ino files
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "arduino",
-        callback = function()
-          require("Arduino-Nvim")
-        end,
-      })
-    end,
   }
 }
