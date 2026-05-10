@@ -13,7 +13,7 @@ end
 local lsp_servers = {
   "ts_ls", "vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
-  "ocamllsp", "arduino_language_server", "lemminx", "erlang_ls"
+  "ocamllsp", "arduino_language_server", "lemminx", "erlang_ls", "dartls"
 }
 
 local signs = { Error = "󰅚", Warn = "󰀪", Hint = "󰌶", Info = "󰋽" }
