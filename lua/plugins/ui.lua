@@ -19,13 +19,6 @@ return {
       require("config.ui").statusline()
     end,
   },
-  -- {
-  --   "nvim-tree/nvim-tree.lua",
-  --   dependencies = { "nvim-tree/nvim-web-devicons" },
-  --   config = function()
-  --     require("config.ui").explorer()
-  --   end,
-  -- },
   {
     'stevearc/oil.nvim',
     ---@module 'oil'

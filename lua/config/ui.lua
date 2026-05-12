@@ -73,37 +73,6 @@ function M.oil()
   require("config.keymaps").oil()
 end
 
-function M.explorer()
-  local ok, nvim_tree = pcall(require, "nvim-tree")
-  if not ok then
-    return
-  end
-
-  nvim_tree.setup({
-    renderer = {
-      group_empty = true,
-      highlight_git = true,
-      indent_markers = { enable = true },
-    },
-    filters = {
-      custom = { ".git", "node_modules" },
-    },
-    update_focused_file = {
-      enable = true,       -- highlights current file
-      update_root = false, -- set to true if you also want the root to change
-    },
-    view = {
-      width = {
-        min = 36,
-        max = 60,
-        padding = 2,
-      },
-      number = false,
-      relativenumber = true,
-    },
-  })
-end
-
 function M.dashboard()
   local ok, alpha = pcall(require, "alpha")
   if not ok then

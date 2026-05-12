@@ -41,9 +41,6 @@ function M.setup()
     require("telescope.builtin").diagnostics()
   end, "Workspace diagnostics")
 
-  map("n", "<leader>e", function()
-    require("nvim-tree.api").tree.toggle({ focus = true })
-  end, "Toggle tree")
 
   map("v", "<A-j>", ":m '>+1<CR>gv=gv", "Move up");
   map("v", "<A-k>", ":m '<-2<CR>gv=gv", "Mode down");
