@@ -172,7 +172,12 @@ function M.lsp(bufnr)
   buf_map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
   buf_map("n", "gi", vim.lsp.buf.implementation, "Goto implementation")
   buf_map("n", "gr", require('telescope.builtin').lsp_references, "Goto references")
-  buf_map("n", "K", vim.lsp.buf.hover, "Hover")
+  buf_map("n", "K", function()
+    vim.lsp.buf.hover { border = 'rounded' }
+  end, "Hover")
+  buf_map("n", "<C-b>", function()
+    vim.lsp.buf.signature_help { border = 'rounded' }
+  end)
   buf_map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
   buf_map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
   buf_map("n", "<leader>cf", function()

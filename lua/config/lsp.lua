@@ -13,7 +13,7 @@ end
 local lsp_servers = {
   "ts_ls", "vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
-  "ocamllsp", "arduino_language_server", "lemminx", "erlang_ls", "dartls"
+  "ocamllsp", "arduino_language_server", "lemminx", "erlang_ls", "dartls", "gopls"
 }
 
 local signs = { Error = "󰅚", Warn = "󰀪", Hint = "󰌶", Info = "󰋽" }
@@ -37,10 +37,6 @@ function M.setup()
     opts.border = opts.border or "rounded"
     return orig_open_float(contents, syntax, opts, ...)
   end
-
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-  vim.lsp.handlers["textDocument/signatureHelp"] =
-      vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
   vim.api.nvim_create_user_command("LspInfo", function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
