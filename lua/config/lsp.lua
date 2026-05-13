@@ -54,7 +54,7 @@ function M.setup()
     end
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-    vim.api.nvim_buf_set_option(buf, "modifiable", false)
+    vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
     vim.cmd("split")
     vim.api.nvim_win_set_buf(0, buf)
   end, {})
@@ -71,9 +71,9 @@ function M.setup()
     if lsplog_buf == nil or not vim.api.nvim_buf_is_valid(lsplog_buf) then
       lsplog_buf = vim.api.nvim_create_buf(false, true)
     end
-    vim.api.nvim_buf_set_option(lsplog_buf, "modifiable", true)
+    vim.api.nvim_set_option_value("modifiable", true, { buf = lsplog_buf })
     vim.api.nvim_buf_set_lines(lsplog_buf, 0, -1, false, lines)
-    vim.api.nvim_buf_set_option(lsplog_buf, "modifiable", false)
+    vim.api.nvim_set_option_value("modifiable", false, { buf = lsplog_buf })
     local win = nil
     for _, w in ipairs(vim.api.nvim_list_wins()) do
       if vim.api.nvim_win_get_buf(w) == lsplog_buf then
