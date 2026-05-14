@@ -58,8 +58,8 @@ return {
         direction = "float", -- float gives you full-screen-like feel
         float_opts = {
           border = "curved",
-          width = vim.o.columns,
-          height = vim.o.lines - 3,
+          width = math.floor(vim.o.columns * 0.9),
+          height = math.floor(vim.o.lines * 0.9),
         },
       })
     end

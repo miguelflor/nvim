@@ -49,8 +49,3 @@ vim.filetype.add({
     jsonl = "json",
   },
 })
-
-vim.g.vsnip_filetypes = {
-  javascriptreact = { "javascript" },
-  typescriptreact = { "typescript" },
-}
