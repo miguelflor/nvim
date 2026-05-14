@@ -44,9 +44,49 @@ function M.setup(on_attach, capabilities)
     on_attach(client, bufnr)
   end
 
+  local function get_java_runtimes()
+    local runtimes = {}
+    local seen = {}
+    local jvm_path = "/usr/lib/jvm/"
+    local handle = io.popen("ls " .. jvm_path)
+
+    if handle then
+      for line in handle:lines() do
+        local version_str = line:match("java%-1%.(%d+)") or line:match("java%-(%d+)")
+        local version_num = tonumber(version_str)
+
+        -- If we found a version and haven't added this number yet (Ex.: 25 = 1.25)
+        if version_num and not seen[version_num] then
+          table.insert(runtimes, {
+            name = "JavaSE-" .. version_num,
+            path = jvm_path .. line,
+            default = false
+          })
+          seen[version_num] = true
+        end
+      end
+      handle:close()
+    end
+
+    table.sort(runtimes, function(a, b)
+      local v_a = tonumber(a.name:match("%d+"))
+      local v_b = tonumber(b.name:match("%d+"))
+      return v_a > v_b
+    end)
+
+    if #runtimes > 0 then
+      runtimes[1].default = true
+    end
+
+    return runtimes
+  end
+
+  local runtimes = get_java_runtimes()
+
   local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
   local workspace_dir = home .. '/.cache/jdtls/workspace/' .. project_name
   local root = jdtls.setup.find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' })
+
 
   local config = {
     cmd = {
@@ -62,12 +102,19 @@ function M.setup(on_attach, capabilities)
 
     -- Here you can pass standard LSP capabilities
     capabilities = capabilities,
-    on_attach = on_attach_local
+    on_attach = on_attach_local,
+    settings = {
+      java = {
+        configuration = {
+          runtimes = runtimes
+        }
+      }
+    }
   }
 
   -- This starts the server and attaches it to the current buffer
   jdtls.start_or_attach(config)
-  
+
   -- Setup DAP with the root directory
   require("config.dap").dap_java()
 end
