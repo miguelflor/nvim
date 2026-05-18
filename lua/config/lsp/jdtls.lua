@@ -85,7 +85,7 @@ function M.setup(on_attach, capabilities)
 
   local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
   local workspace_dir = home .. '/.cache/jdtls/workspace/' .. project_name
-  local root = jdtls.setup.find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' })
+  local root = jdtls.setup.find_root({ 'mvnw', 'gradlew', 'pom.xml', 'build.gradle', '.gitignore', '.git' })
 
 
   local config = {
