@@ -1,5 +1,6 @@
 return {
-  cmd = { "pyright-langserver", "--stdio" },
+  -- Can by dafault go to the pyright in the environment
+  cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/pyright-langserver"), "--stdio" },
   filetypes = { "python" },
   root_markers = {
     "pyproject.toml",
