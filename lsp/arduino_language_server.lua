@@ -1,7 +1,6 @@
 return {
   filetypes = { 'arduino' },
-  -- arduino_config is specific to the library of Arduino-Nvim
-  root_markers = { ".arduino_config.lua", "sketch.yaml", ".git" }
+  root_markers = { "sketch.yaml", ".git" }
   ,
   cmd = {
     'arduino-language-server',
