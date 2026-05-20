@@ -47,6 +47,7 @@ function M.setup()
     "gopls",
     "golangci-lint",
     "goimports",
+    "ruff",
   }
 
   for _, name in ipairs(ensure) do
