@@ -105,6 +105,7 @@ function M.setup_conform()
   require("conform").setup({
     formatters_by_ft = {
       python = { "ruff_format" },
+      go = { "goimports" },
     },
     format_on_save = function(bufnr)
       if vim.bo[bufnr].filetype == "erlang" then
