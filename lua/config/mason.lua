@@ -44,6 +44,9 @@ function M.setup()
     "copilot-language-server",
     "jdtls",
     "texlab",
+    "gopls",
+    "golangci-lint",
+    "goimports",
   }
 
   for _, name in ipairs(ensure) do
