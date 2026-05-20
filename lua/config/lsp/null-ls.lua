@@ -10,6 +10,9 @@ function M.setup(on_attach, capabilities)
   if null_ls.builtins and null_ls.builtins.formatting and null_ls.builtins.formatting.prettierd then
     table.insert(sources, null_ls.builtins.formatting.prettierd)
   end
+  if null_ls.builtins.diagnostics.golangci_lint then
+    table.insert(sources, null_ls.builtins.diagnostics.golangci_lint)
+  end
 
   null_ls.setup({
     capabilities = capabilities,
