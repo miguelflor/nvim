@@ -7,6 +7,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+vim.api.nvim_create_user_command("NullLsToggle", function()
+  local null_ls = require("null-ls")
+  if null_ls.is_registered("formatting") then
+    null_ls.disable({})
+  else
+    null_ls.enable({})
+  end
+end, {})
+
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
   group = group,
   command = "checktime",
