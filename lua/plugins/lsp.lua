@@ -89,7 +89,7 @@ return {
       { "nvim-telescope/telescope.nvim", version = "*", dependencies = { "nvim-lua/plenary.nvim" } },
     },
     ft = "python",
-    keys = { { ",v", "<cmd>VenvSelect<cr>" } },
+    keys = { { "<leader>vs", "<cmd>VenvSelect<cr>" } },
     opts = {
       options = {
         override_notify = false,
