@@ -13,7 +13,9 @@ return {
     end,
   },
   {
-    "rmagatti/auto-session",
+    "folke/persistence.nvim",
+    event = "BufReadPre",
+    opts = {},
     config = function()
       require("config.sessions").setup()
     end,

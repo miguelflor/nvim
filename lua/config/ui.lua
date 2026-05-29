@@ -92,7 +92,7 @@ function M.dashboard()
     dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
     dashboard.button("r", "  Recent files", ":Telescope oldfiles<CR>"),
     dashboard.button("p", "  Projects", ":Telescope projects<CR>"),
-    dashboard.button("s", "  Restore session", ":SessionRestore<CR>"),
+    dashboard.button("s", "  Restore session", ":lua require('persistence').load()<CR>"),
     dashboard.button("c", "  Edit config", ":cd ~/.config/nvim | e init.lua<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),
   }

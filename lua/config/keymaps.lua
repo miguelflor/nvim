@@ -63,8 +63,10 @@ function M.setup()
   map("n", "<leader>tc", "<cmd>tabclose<CR>", "Closes the current tab")
   map("n", "<leader>tn", "<cmd>tabnew<CR>", "Opens a new Tab")
 
-  map("n", "<leader>qs", "<cmd>SessionSave<CR>", "Save session")
-  map("n", "<leader>qr", "<cmd>SessionRestore<CR>", "Restore session")
+  map("n", "<leader>qs", function() require("persistence").load() end, "Restore session (cwd)")
+  map("n", "<leader>qS", function() require("persistence").select() end, "Select session")
+  map("n", "<leader>ql", function() require("persistence").load({ last = true }) end, "Restore last session")
+  map("n", "<leader>qr", function() require("persistence").stop() end, "Stop session saving")
   map("n", "<leader>qq", "<cmd>qa<CR>", "Quit Neovim")
 
   map("v", "<leader>y", '"+y', "Copy selection to clipboard")
