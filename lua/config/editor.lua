@@ -98,6 +98,9 @@ function M.autosave()
       if ft == "gitcommit" then
         return false
       end
+      if ft == "oil" then
+        return false
+      end
       return vim.bo[buf].modifiable
     end,
   })

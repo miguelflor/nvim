@@ -8,6 +8,7 @@ function M.setup()
 
   auto_session.setup({
     log_level = "error",
+    bypass_save_filetypes = { "oil" },
     auto_session_suppress_dirs = { "~/" },
     auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
     auto_session_enabled = true,
