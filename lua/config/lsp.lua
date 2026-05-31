@@ -103,15 +103,26 @@ end
 
 function M.setup_conform()
   require("conform").setup({
+    default_format_opts = {
+      lsp_format = "fallback",
+    },
     formatters_by_ft = {
       python = { "ruff_format" },
       go = { "goimports" },
+      vue = { "prettierd" },
+      typescript = { "prettierd" },
+      typescriptreact = { "prettierd" },
+      javascript = { "prettierd" },
+      javascriptreact = { "prettierd" },
+      css = { "prettierd" },
+      html = { "prettierd" },
+      json = { "prettierd" },
     },
     format_on_save = function(bufnr)
       if vim.bo[bufnr].filetype == "erlang" then
         return nil
       end
-      return { timeout_ms = 500, lsp_fallback = true }
+      return { timeout_ms = 500 }
     end,
   })
 end

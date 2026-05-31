@@ -1,6 +1,14 @@
 return {
   init_options = {
-    hostInfo = 'neovim' },
+    hostInfo = 'neovim',
+    plugins = {
+      {
+        name = '@vue/typescript-plugin',
+        location = vim.fn.expand('$MASON/packages/vue-language-server/node_modules/@vue/typescript-plugin'),
+        languages = { 'vue' },
+      },
+    },
+  },
   cmd = { 'typescript-language-server', '--stdio' },
   filetypes = {
     'vue',

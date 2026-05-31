@@ -10,7 +10,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-vim.opt.rtp:prepend(vim.fn.stdpath("data").."/site")
+vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/site")
 
 local lazy_spec = {
   require("plugins.core"),
@@ -20,6 +20,7 @@ local lazy_spec = {
   require("plugins.git"),
   require("plugins.ai"),
   require("plugins.lsp"),
+  require("plugins.tools")
 }
 
 require("lazy").setup(lazy_spec, {
