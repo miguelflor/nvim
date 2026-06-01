@@ -30,7 +30,7 @@ function M.setup()
       "typescript",
       "tsx",
       "jsx",
-      "tsx",
+      "vue",
       "css",
       "html",
       "python",
