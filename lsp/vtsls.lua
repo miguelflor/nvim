@@ -7,10 +7,16 @@ return {
     'typescriptreact',
     'vue',
   },
+  root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
   settings = {
     vtsls = {
       autoUseWorkspaceTsdk = true,
       enableMoveToFileCodeAction = true,
+      experimental = {
+        completion = {
+          enableServerSideFuzzyMatch = true,
+        },
+      },
       tsserver = {
         globalPlugins = {
           {
@@ -24,14 +30,13 @@ return {
       },
     },
     typescript = {
+      tsserver = { maxTsServerMemory = 8192 },
       updateImportsOnFileMove = { enabled = 'always' },
       suggest = { completeFunctionCalls = true },
-      preferences = { maxNumberOfProblems = 50 },
     },
     javascript = {
       updateImportsOnFileMove = { enabled = 'always' },
       suggest = { completeFunctionCalls = true },
-      preferences = { maxNumberOfProblems = 50 },
     },
   },
   commands = {

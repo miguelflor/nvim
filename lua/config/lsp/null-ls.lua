@@ -11,7 +11,9 @@ function M.setup(on_attach, capabilities)
     table.insert(sources, null_ls.builtins.formatting.prettierd)
   end
   if null_ls.builtins.diagnostics.golangci_lint then
-    table.insert(sources, null_ls.builtins.diagnostics.golangci_lint)
+    table.insert(sources, null_ls.builtins.diagnostics.golangci_lint.with({
+      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+    }))
   end
 
   null_ls.setup({

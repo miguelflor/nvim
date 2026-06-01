@@ -17,7 +17,7 @@ return {
     'typescript',
     'typescriptreact',
   },
-  root_patterns = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+  root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
   handlers = {
     -- handle rename request for certain code actions like extracting functions / types
     ['_typescript.rename'] = function(_, result, ctx)

@@ -1,7 +1,7 @@
 return {
   cmd = { 'vue-language-server', '--stdio' },
   filetypes = { 'vue' },
-  root_patterns = { 'package.json' },
+  root_markers = { 'package.json' },
   on_init = function(client)
     local retries = 0
 
