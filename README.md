@@ -1,8 +1,12 @@
-# Neovim Configuration
+# FlorVim
 
-A modern, feature-rich Neovim IDE configuration using **native LSP** (Neovim 0.10+) and **lazy.nvim** plugin manager, with support for 14+ programming languages, advanced debugging, git workflows, and Arduino development.
+A personal Neovim IDE configuration using **native LSP** (Neovim 0.10+) and **lazy.nvim**, with support for 14+ programming languages, advanced debugging, git workflows, and Arduino development.
 
 ## 🚀 Features
+
+### Hybrid LSP: Native + coc.nvim for JS/TS/Vue
+
+JS/TS/Vue use **coc.nvim** — it runs its own Node.js host and talks directly to `vtsls` and `vue-language-server`, giving VS Code-level TypeScript speed. Everything else uses **native LSP**. coc is lazy-loaded and only activates for those filetypes; `blink.cmp` is disabled there so the two never conflict.
 
 ### Native Language Server Protocol (LSP)
 
