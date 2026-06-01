@@ -1,0 +1,72 @@
+{
+  "languageserver": {
+    "vtsls": {
+      "command": "vtsls",
+      "args": ["--stdio"],
+      "filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
+      "rootPatterns": ["package.json", "tsconfig.json", "jsconfig.json", ".git"],
+      "settings": {
+        "vtsls": {
+          "autoUseWorkspaceTsdk": true,
+          "enableMoveToFileCodeAction": true,
+          "tsserver": {
+            "locale": "en",
+            "globalPlugins": [
+              {
+                "name": "@vue/typescript-plugin",
+                "location": "/home/miguel/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin",
+                "languages": ["vue"],
+                "configNamespace": "typescript",
+                "enableForWorkspaceTypeScriptVersions": true
+              }
+            ]
+          }
+        },
+        "typescript": {
+          "tsserver": { "maxTsServerMemory": 8192 },
+          "locale": "en",
+          "updateImportsOnFileMove": { "enabled": "always" },
+          "suggest": { "completeFunctionCalls": true }
+        },
+        "javascript": {
+          "updateImportsOnFileMove": { "enabled": "always" },
+          "suggest": { "completeFunctionCalls": true }
+        }
+      }
+    },
+    "vue-language-server": {
+      "command": "vue-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["vue"],
+      "rootPatterns": ["package.json"],
+      "initializationOptions": {
+        "typescript": {
+          "tsdk": "/home/miguel/.local/share/nvim/mason/packages/vtsls/node_modules/@vtsls/language-server/node_modules/typescript/lib"
+        },
+        "vue": {
+          "hybridMode": true
+        }
+      }
+    }
+  },
+
+  "coc.preferences.formatOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": ["vue", "typescript", "javascript", "typescriptreact", "javascriptreact"],
+
+  "prettier.enable": true,
+  "prettier.requireConfig": false,
+
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.hintSign": "",
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "suggest.noselect": true,
+  "suggest.enablePreselect": false,
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.minTriggerInputLength": 1,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

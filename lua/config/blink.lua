@@ -42,7 +42,11 @@ function M.setup()
       preset = "default",
     },
     sources = {
-      default = { "lsp", "snippets", "path", "buffer" },
+      default = function()
+        local coc_fts = { javascript = true, javascriptreact = true, typescript = true, typescriptreact = true, vue = true }
+        if coc_fts[vim.bo.filetype] then return {} end
+        return { "lsp", "snippets", "path", "buffer" }
+      end,
     },
     fuzzy = { implementation = "lua" },
   })

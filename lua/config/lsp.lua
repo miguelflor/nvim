@@ -6,13 +6,19 @@ if ok_blink then
   capabilities = blink.get_lsp_capabilities(capabilities)
 end
 
+-- These filetypes are handled by coc.nvim instead
+local coc_filetypes = { javascript = true, javascriptreact = true, typescript = true, typescriptreact = true, vue = true }
+
 local function on_attach(_, bufnr)
-  require("config.keymaps").lsp(bufnr)
+  if not coc_filetypes[vim.bo[bufnr].filetype] then
+    require("config.keymaps").lsp(bufnr)
+  end
 end
 
--- dartls is not in the lsit because flutter-tools already handles that
+-- dartls is not in the list because flutter-tools already handles that
+-- vtsls and vue_ls are handled by coc.nvim
 local lsp_servers = {
-  "vtsls", "vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
+  "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
   "ocamllsp", "arduino_language_server", "lemminx", "erlang_ls", "gopls"
 }
@@ -91,7 +97,10 @@ function M.setup()
     vim.cmd("normal! G")
   end, { nargs = "?" })
 
-  vim.lsp.enable(lsp_servers)
+  local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+  if not vim.env.PATH:find(mason_bin, 1, true) then
+    vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
+  end
 
   for _, server_name in ipairs(lsp_servers) do
     vim.lsp.config(server_name, {
@@ -99,6 +108,8 @@ function M.setup()
       capabilities = capabilities,
     })
   end
+
+  vim.lsp.enable(lsp_servers)
 end
 
 function M.setup_conform()

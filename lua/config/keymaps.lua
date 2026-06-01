@@ -197,4 +197,60 @@ function M.lsp(bufnr)
   end, "List workspaces")
 end
 
+function M.coc(bufnr)
+  local function buf_map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, noremap = true, silent = true, desc = desc })
+  end
+
+  buf_map("n", "gd", "<Plug>(coc-definition)", "Goto definition")
+  buf_map("n", "gD", "<Plug>(coc-declaration)", "Goto declaration")
+  buf_map("n", "gi", "<Plug>(coc-implementation)", "Goto implementation")
+  buf_map("n", "gr", "<Plug>(coc-references)", "Goto references")
+  buf_map("n", "K", function()
+    local cw = vim.fn.expand("<cword>")
+    if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+      vim.cmd("help " .. cw)
+    elseif vim.api.nvim_eval("coc#rpc#ready()") then
+      vim.fn.CocActionAsync("doHover")
+    else
+      vim.cmd("!" .. vim.o.keywordprg .. " " .. cw)
+    end
+  end, "Hover")
+  buf_map("n", "<C-b>", "<Plug>(coc-float-scroll-down)", "Signature help / scroll float")
+  buf_map("n", "<leader>rn", "<Plug>(coc-rename)", "Rename symbol")
+  buf_map({ "n", "v" }, "<leader>ca", "<Plug>(coc-codeaction-cursor)", "Code action")
+  buf_map("n", "<leader>cf", function()
+    vim.fn.CocActionAsync("format")
+  end, "Format buffer")
+  buf_map("n", "[d", "<Plug>(coc-diagnostic-prev)", "Prev diagnostic")
+  buf_map("n", "]d", "<Plug>(coc-diagnostic-next)", "Next diagnostic")
+  buf_map("n", "<leader>ds", "<Plug>(coc-diagnostic-info)", "Line diagnostics")
+
+  -- Insert-mode completion keys (buffer-local, replacing blink for these filetypes)
+  vim.keymap.set("i", "<Tab>", function()
+    if vim.fn["coc#pum#visible"]() == 1 then
+      return vim.fn["coc#pum#next"](1)
+    elseif vim.fn["coc#expandableOrJumpable"]() then
+      return "<Plug>(coc-snippets-expand-jump)"
+    end
+    return "<Tab>"
+  end, { buffer = bufnr, silent = true, expr = true, noremap = false })
+
+  vim.keymap.set("i", "<S-Tab>", function()
+    if vim.fn["coc#pum#visible"]() == 1 then
+      return vim.fn["coc#pum#prev"](1)
+    end
+    return "<S-Tab>"
+  end, { buffer = bufnr, silent = true, expr = true })
+
+  vim.keymap.set("i", "<CR>", function()
+    if vim.fn["coc#pum#visible"]() == 1 then
+      return vim.fn["coc#pum#confirm"]()
+    end
+    return "<CR>"
+  end, { buffer = bufnr, silent = true, expr = true })
+
+  vim.keymap.set("i", "<C-Space>", "coc#refresh()", { buffer = bufnr, silent = true, expr = true })
+end
+
 return M

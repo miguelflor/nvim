@@ -12,12 +12,6 @@ return {
     vtsls = {
       autoUseWorkspaceTsdk = true,
       enableMoveToFileCodeAction = true,
-      experimental = {
-        completion = {
-          enableServerSideFuzzyMatch = true,
-          entriesLimit = 50
-        },
-      },
       tsserver = {
         globalPlugins = {
           {
@@ -33,7 +27,7 @@ return {
     typescript = {
       tsserver = { maxTsServerMemory = 8192 },
       updateImportsOnFileMove = { enabled = 'always' },
-      suggest = { completeFunctionCalls = true },
+      suggest = { completeFunctionCalls = true, autoImports = false },
     },
     javascript = {
       updateImportsOnFileMove = { enabled = 'always' },

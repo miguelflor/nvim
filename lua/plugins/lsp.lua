@@ -45,6 +45,14 @@ return {
     end,
   },
   {
+    "neoclide/coc.nvim",
+    branch = "release",
+    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+    config = function()
+      require("config.coc").setup()
+    end,
+  },
+  {
     dir = vim.fn.expand("~/projects/pest.nvim"),
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
