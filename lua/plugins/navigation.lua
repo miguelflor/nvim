@@ -13,14 +13,6 @@ return {
     end,
   },
   {
-    "folke/persistence.nvim",
-    event = "BufReadPre",
-    opts = {},
-    config = function()
-      require("config.sessions").setup()
-    end,
-  },
-  {
     "theprimeagen/harpoon",
     config = function()
       require("config.harpoon").setup()
