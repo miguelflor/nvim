@@ -12,7 +12,7 @@ end
 
 -- dartls is not in the lsit because flutter-tools already handles that
 local lsp_servers = {
-  "ts_ls", "vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
+  "vtsls", "vue_ls", "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
   "ocamllsp", "arduino_language_server", "lemminx", "erlang_ls", "gopls"
 }

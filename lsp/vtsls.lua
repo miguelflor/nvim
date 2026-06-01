@@ -1,0 +1,87 @@
+return {
+  cmd = { 'vtsls', '--stdio' },
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+    'vue',
+  },
+  settings = {
+    vtsls = {
+      autoUseWorkspaceTsdk = true,
+      enableMoveToFileCodeAction = true,
+      tsserver = {
+        globalPlugins = {
+          {
+            name = '@vue/typescript-plugin',
+            location = vim.fn.expand('$MASON/packages/vue-language-server/node_modules/@vue/typescript-plugin'),
+            languages = { 'vue' },
+            configNamespace = 'typescript',
+            enableForWorkspaceTypeScriptVersions = true,
+          },
+        },
+      },
+    },
+    typescript = {
+      updateImportsOnFileMove = { enabled = 'always' },
+      suggest = { completeFunctionCalls = true },
+      preferences = { maxNumberOfProblems = 50 },
+    },
+    javascript = {
+      updateImportsOnFileMove = { enabled = 'always' },
+      suggest = { completeFunctionCalls = true },
+      preferences = { maxNumberOfProblems = 50 },
+    },
+  },
+  commands = {
+    ['editor.action.showReferences'] = function(command, ctx)
+      local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
+      local file_uri, position, references = unpack(command.arguments)
+      local quickfix_items = vim.lsp.util.locations_to_items(references --[[@as any]], client.offset_encoding)
+      vim.fn.setqflist({}, ' ', {
+        title = command.title,
+        items = quickfix_items,
+        context = { command = command, bufnr = ctx.bufnr },
+      })
+      vim.lsp.util.show_document({
+        uri = file_uri --[[@as string]],
+        range = {
+          start = position --[[@as lsp.Position]],
+          ['end'] = position --[[@as lsp.Position]],
+        },
+      }, client.offset_encoding)
+      vim.cmd('botright copen')
+    end,
+  },
+  on_attach = function(client, bufnr)
+    vim.api.nvim_buf_create_user_command(bufnr, 'LspTypescriptSourceAction', function()
+      local source_actions = vim.tbl_filter(function(action)
+        return vim.startswith(action, 'source.')
+      end, client.server_capabilities.codeActionProvider.codeActionKinds)
+      vim.lsp.buf.code_action({
+        context = { only = source_actions, diagnostics = {} },
+      })
+    end, {})
+
+    vim.api.nvim_buf_create_user_command(bufnr, 'LspTypescriptGoToSourceDefinition', function()
+      local win = vim.api.nvim_get_current_win()
+      local params = vim.lsp.util.make_position_params(win, client.offset_encoding)
+      client:exec_cmd({
+        command = 'typescript.goToSourceDefinition',
+        title = 'Go to source definition',
+        arguments = { params.textDocument.uri, params.position },
+      }, { bufnr = bufnr }, function(err, result)
+        if err then
+          vim.notify('Go to source definition failed: ' .. err.message, vim.log.levels.ERROR)
+          return
+        end
+        if not result or vim.tbl_isempty(result) then
+          vim.notify('No source definition found', vim.log.levels.INFO)
+          return
+        end
+        vim.lsp.util.show_document(result[1], client.offset_encoding, { focus = true })
+      end)
+    end, { desc = 'Go to source definition' })
+  end,
+}

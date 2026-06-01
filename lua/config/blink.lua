@@ -28,6 +28,7 @@ function M.setup()
       },
       list = {
         selection = { preselect = false, auto_insert = false },
+        max_items = 50,
       },
     },
     cmdline = {
