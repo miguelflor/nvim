@@ -19,7 +19,6 @@
       "settings": {
         "vtsls": {
           "autoUseWorkspaceTsdk": true,
-          "enableMoveToFileCodeAction": true,
           "tsserver": {
             "locale": "en",
             "globalPlugins": [
@@ -57,7 +56,8 @@
         "vue": {
           "hybridMode": true
         }
-      }
+      },
+      "disabledFeatures": ["codeAction"]
     }
   },
   "coc.preferences.formatOnSave": true,
