@@ -3,8 +3,19 @@
     "vtsls": {
       "command": "vtsls",
       "args": ["--stdio"],
-      "filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
-      "rootPatterns": ["package.json", "tsconfig.json", "jsconfig.json", ".git"],
+      "filetypes": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue"
+      ],
+      "rootPatterns": [
+        "package.json",
+        "tsconfig.json",
+        "jsconfig.json",
+        ".git"
+      ],
       "settings": {
         "vtsls": {
           "autoUseWorkspaceTsdk": true,
@@ -49,9 +60,14 @@
       }
     }
   },
-
   "coc.preferences.formatOnSave": true,
-  "coc.preferences.formatOnSaveFiletypes": ["vue", "typescript", "javascript", "typescriptreact", "javascriptreact"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "vue",
+    "typescript",
+    "javascript",
+    "typescriptreact",
+    "javascriptreact"
+  ],
 
   "prettier.enable": true,
   "prettier.requireConfig": false,
@@ -62,6 +78,18 @@
   "diagnostic.hintSign": "",
   "eslint.autoFixOnSave": true,
   "eslint.format.enable": true,
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "diagnostic.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "signature.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "suggest.triggerAfterInsertEnter": true,
