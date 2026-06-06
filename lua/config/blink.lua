@@ -43,8 +43,8 @@ function M.setup()
     },
     sources = {
       default = function()
-        local coc_fts = { javascript = true, javascriptreact = true, typescript = true, typescriptreact = true, vue = true }
-        if coc_fts[vim.bo.filetype] then return {} end
+        -- No blink sources when the current filetype is being served by coc.
+        if require("config.coc").is_coc_ft(vim.bo.filetype) then return {} end
         return { "lsp", "snippets", "path", "buffer" }
       end,
     },

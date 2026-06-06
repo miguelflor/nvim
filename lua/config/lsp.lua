@@ -6,17 +6,20 @@ if ok_blink then
   capabilities = blink.get_lsp_capabilities(capabilities)
 end
 
--- These filetypes are handled by coc.nvim instead
-local coc_filetypes = { javascript = true, javascriptreact = true, typescript = true, typescriptreact = true, vue = true }
+-- Keymaps + completion for "switchable" filetypes (those that can run on
+-- either native LSP or coc.nvim) are driven by config.coc; generic servers
+-- must not bind keymaps over them.
+local coc = require("config.coc")
 
 local function on_attach(_, bufnr)
-  if not coc_filetypes[vim.bo[bufnr].filetype] then
+  if not coc.is_managed_ft(vim.bo[bufnr].filetype) then
     require("config.keymaps").lsp(bufnr)
   end
 end
 
--- dartls is not in the list because flutter-tools already handles that
--- vtsls and vue_ls are handled by coc.nvim
+-- dartls is not in the list because flutter-tools already handles that.
+-- Servers in config.coc.engines (e.g. vtsls, vue_ls) are configured below and
+-- enabled by config.coc, since they are toggled against coc.nvim (:CocToggle).
 local lsp_servers = {
   "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
@@ -30,6 +33,10 @@ for type, icon in pairs(signs) do
 end
 
 function M.setup()
+  -- Registers :CocToggle, the engine-switch autocmd and keymap. Runs at
+  -- startup so toggling works before coc.nvim is ever loaded.
+  coc.setup()
+
   vim.diagnostic.config({
     virtual_text = { spacing = 2, prefix = "●" },
     severity_sort = true,
@@ -110,6 +117,14 @@ function M.setup()
   end
 
   vim.lsp.enable(lsp_servers)
+
+  -- Switchable servers (vtsls, vue_ls, …) keep their own on_attach from
+  -- lsp/<name>.lua; just give them the shared completion capabilities. They are
+  -- enabled/disabled by config.coc according to the persisted engine state.
+  for _, server_name in ipairs(coc.managed_servers()) do
+    vim.lsp.config(server_name, { capabilities = capabilities })
+  end
+  coc.apply_startup_state()
 end
 
 function M.setup_conform()

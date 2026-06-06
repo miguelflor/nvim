@@ -45,12 +45,11 @@ return {
     end,
   },
   {
+    -- Loaded on demand by config.coc (via :CocToggle); native LSP is the
+    -- default engine, so coc stays unloaded until you ask for it.
     "neoclide/coc.nvim",
     branch = "release",
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-    config = function()
-      require("config.coc").setup()
-    end,
+    lazy = true,
   },
   {
     dir = vim.fn.expand("~/projects/pest.nvim"),
