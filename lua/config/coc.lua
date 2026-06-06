@@ -57,6 +57,17 @@ function M.is_managed_ft(ft)
   return ft_to_group[ft] ~= nil
 end
 
+-- Engine to display for the current buffer. A managed filetype reflects its
+-- own group; any other filetype reflects the global engine state (coc once any
+-- group is on coc), even though coc won't actually serve it.
+function M.current_engine()
+  local ft = vim.bo.filetype
+  if M.is_managed_ft(ft) then
+    return M.is_coc_ft(ft) and "coc" or "native"
+  end
+  return next(coc_groups()) ~= nil and "coc" or "native"
+end
+
 -- Every buffer-local mapping either engine may set, cleared before binding the
 -- active engine's keys when swapping on an already-open buffer.
 local clear_maps = {
@@ -131,17 +142,17 @@ end
 function M.use_native(group)
   set_group(group, false)
   stop_coc_if_idle()
-  vim.lsp.enable(M.engines[group].servers, true)
+  vim.lsp.enable(require("config.lsp").lsp_servers, true)
   reapply_group_buffers(group)
-  vim.notify(("LSP engine [%s]: native"):format(group), vim.log.levels.INFO)
+  vim.notify("LSP engine: native", vim.log.levels.INFO)
 end
 
 function M.use_coc(group)
   set_group(group, true)
-  vim.lsp.enable(M.engines[group].servers, false) -- stops their clients
+  vim.lsp.enable(require("config.lsp").lsp_servers, false) -- stops their clients
   ensure_coc_started()
   reapply_group_buffers(group)
-  vim.notify(("LSP engine [%s]: coc.nvim"):format(group), vim.log.levels.INFO)
+  vim.notify("LSP engine: coc", vim.log.levels.INFO)
 end
 
 function M.toggle(group)

@@ -48,13 +48,11 @@ function M.statusline()
           end,
           color = { fg = "#6272a4" }, -- A subtle purple/blue color
         },
-        -- Active LSP engine for switchable filetypes (see config.coc)
+        -- Active LSP engine (see config.coc). Always shown: reflects the global
+        -- engine state even on filetypes coc doesn't serve.
         {
           function()
-            return require("config.coc").is_coc_ft(vim.bo.filetype) and "󰚩 coc" or " native"
-          end,
-          cond = function()
-            return require("config.coc").is_managed_ft(vim.bo.filetype)
+            return require("config.coc").current_engine() == "coc" and "󰚩 coc" or " native"
           end,
           color = { fg = "#6272a4" },
         },

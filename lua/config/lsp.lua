@@ -20,7 +20,7 @@ end
 -- dartls is not in the list because flutter-tools already handles that.
 -- Servers in config.coc.engines (e.g. vtsls, vue_ls) are configured below and
 -- enabled by config.coc, since they are toggled against coc.nvim (:CocToggle).
-local lsp_servers = {
+M.lsp_servers = {
   "lua_ls", "rust_analyzer", "docker_language_server", "pest_ls",
   "tailwindcss", "cssls", "clangd", "pyright", "eslint", "flux-lsp", "texlab",
   "ocamllsp", "arduino_language_server", "lemminx", "erlang_ls", "gopls"
@@ -109,14 +109,14 @@ function M.setup()
     vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
   end
 
-  for _, server_name in ipairs(lsp_servers) do
+  for _, server_name in ipairs(M.lsp_servers) do
     vim.lsp.config(server_name, {
       on_attach = on_attach,
       capabilities = capabilities,
     })
   end
 
-  vim.lsp.enable(lsp_servers)
+  vim.lsp.enable(M.lsp_servers)
 
   -- Switchable servers (vtsls, vue_ls, …) keep their own on_attach from
   -- lsp/<name>.lua; just give them the shared completion capabilities. They are
