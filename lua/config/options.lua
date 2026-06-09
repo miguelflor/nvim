@@ -9,7 +9,7 @@ vim.g.vimtex_compiler_options = "-pdf -shell-escape -interaction=nonstopmode"
 local opt = vim.opt
 
 opt.swapfile = false
-opt.textwidth = 80
+opt.textwidth = 0
 opt.termguicolors = true
 opt.number = true
 opt.relativenumber = true

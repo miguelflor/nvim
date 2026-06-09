@@ -145,10 +145,9 @@ function M.setup_conform()
       json = { "prettierd" },
     },
     format_on_save = function(bufnr)
-      if vim.bo[bufnr].filetype == "erlang" then
-        return nil
-      end
-      return { timeout_ms = 500 }
+      -- disabled globally; add filetype exceptions here to re-enable selectively
+      -- e.g.: if vim.bo[bufnr].filetype == "go" then return { timeout_ms = 500 } end
+      return nil
     end,
   })
 end
