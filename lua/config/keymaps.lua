@@ -27,6 +27,7 @@ end
 function M.setup()
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search")
   map("n", "<leader>pf", lsp_root_run("find_files"), "Find files")
+  map("n", "<leader>ff", function() require("telescope.builtin").find_files() end, "Find files")
   map("n", "<leader>ps", lsp_root_run("live_grep"), "Live grep")
   map("n", "<leader>pg", lsp_root_run("git_status"), "Find changed files")
   map("n", "<leader>fp", function()
