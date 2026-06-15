@@ -58,13 +58,6 @@ function M.todo()
   })
 end
 
-function M.neoscroll()
-  local ok, neoscroll = pcall(require, "neoscroll")
-  if not ok then
-    return
-  end
-  neoscroll.setup({})
-end
 
 function M.cutlass()
   local ok, cutlass = pcall(require, "cutlass")

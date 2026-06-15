@@ -58,12 +58,6 @@ return {
       require("config.editor").cutlass()
     end,
   },
-  {
-    "karb94/neoscroll.nvim",
-    config = function()
-      require("config.editor").neoscroll()
-    end,
-  },
   "mbbill/undotree",
   "mg979/vim-visual-multi",
   {
