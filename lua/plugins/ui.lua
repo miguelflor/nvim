@@ -35,6 +35,11 @@ return {
     lazy = false,
   },
   {
+    "refractalize/oil-git-status.nvim",
+    dependencies = { "stevearc/oil.nvim" },
+    opts = {},
+  },
+  {
     "OXY2DEV/markview.nvim",
     lazy = false,
     config = function()
