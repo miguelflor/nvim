@@ -71,5 +71,14 @@ return {
     end,
   },
   -- In your plugin list
-  { "tpope/vim-abolish" }
+  { "tpope/vim-abolish" },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end },
+    },
+  }
 }

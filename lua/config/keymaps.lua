@@ -56,8 +56,8 @@ function M.setup()
   map("n", "<C-k>", "<C-w>k", "Focus window above")
   map("n", "<C-l>", "<C-w>l", "Focus window right")
 
-  map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and recenter" })
-  map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and recenter" })
+  map("n", "<C-d>", "<C-d>zz",  "Scroll down and recenter" )
+  map("n", "<C-u>", "<C-u>zz",  "Scroll up and recenter" )
 
   map("n", "<leader>tc", "<cmd>tabclose<CR>", "Closes the current tab")
   map("n", "<leader>tn", "<cmd>tabnew<CR>", "Opens a new Tab")
