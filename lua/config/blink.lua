@@ -32,10 +32,21 @@ function M.setup()
       },
     },
     cmdline = {
+      keymap = {
+        preset      = "none",
+        ["<C-Space>"] = { "show", "fallback" },
+        ["<C-e>"]   = { "cancel", "fallback" },
+        ["<CR>"]    = { "select_and_accept", "fallback" },
+        ["<Tab>"]   = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
+      },
       completion = {
         menu = {
           auto_show = true
-        }
+        },
+        list = {
+          selection = { preselect = false, auto_insert = false },
+        },
       }
     },
     snippets = {
