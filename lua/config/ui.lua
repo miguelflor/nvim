@@ -67,6 +67,9 @@ end
 
 function M.oil()
   require("oil").setup({
+    win_options = {
+      signcolumn = "yes:2"
+    },
     keymaps = {
       ["q"] = "actions.close",
     },

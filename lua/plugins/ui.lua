@@ -37,7 +37,26 @@ return {
   {
     "refractalize/oil-git-status.nvim",
     dependencies = { "stevearc/oil.nvim" },
-    opts = {},
+    opts = {
+      symbols = {
+        index = {
+          ["A"] = "󰐕",
+          ["D"] = "󰍴",
+          ["M"] = "󰝒",
+          ["R"] = "󰑕",
+          ["U"] = "󰀨",
+          ["?"] = "󰘶",
+        },
+        working_tree = {
+          ["A"] = "󰐕",
+          ["D"] = "󰍴",
+          ["M"] = "󰝒",
+          ["R"] = "󰑕",
+          ["U"] = "󰀨",
+          ["?"] = "󰘶",
+        },
+      },
+    },
   },
   {
     "OXY2DEV/markview.nvim",
