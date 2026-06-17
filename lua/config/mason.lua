@@ -55,6 +55,7 @@ function M.setup()
     "golangci-lint",
     "goimports",
     "ruff",
+    "kotlin-lsp",
   }
 
   for _, name in ipairs(ensure) do
