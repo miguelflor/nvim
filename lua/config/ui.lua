@@ -18,6 +18,30 @@ function M.colors()
   vim.cmd("colorscheme rose-pine")
 end
 
+function M.mode_toggle()
+  local ok, rose = pcall(require, "rose-pine")
+  if not ok then return end
+
+  -- rose-pine's colorscheme() always resets vim.g.colors_name to "rose-pine",
+  -- so detect the active variant via vim.o.background instead (set per-variant).
+  local to_dark = vim.o.background == "light"
+  local variant = to_dark and "moon" or "dawn"
+
+  rose.setup({
+    variant = variant,
+    styles = {
+      bold = true,
+      italic = false,
+      -- Transparency only looks right on the dark variant over a dark terminal;
+      -- the light "dawn" variant needs its own opaque background painted.
+      transparency = to_dark,
+    },
+  })
+  vim.cmd("colorscheme rose-pine-" .. variant)
+end
+
+vim.api.nvim_create_user_command("ModeToggle", M.mode_toggle, {})
+
 function M.statusline()
   local ok, lualine = pcall(require, "lualine")
   if not ok then
