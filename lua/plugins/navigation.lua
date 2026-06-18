@@ -6,7 +6,7 @@ return {
     end,
   },
   {
-    "DrKJeff16/project.nvim",
+    "ahmedkhalf/project.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     config = function()
       require("config.project").setup()
