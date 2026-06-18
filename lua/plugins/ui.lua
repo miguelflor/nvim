@@ -87,5 +87,13 @@ return {
         },
       })
     end
+  },
+  {
+    'nanozuki/tabby.nvim',
+    dependencies = 'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    event = 'VimEnter',
+    config = function()
+      require('config.ui').tabby()
+    end,
   }
 }
