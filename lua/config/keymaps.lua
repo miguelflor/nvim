@@ -242,12 +242,9 @@ function M.coc(bufnr)
     return "<S-Tab>"
   end, { buffer = bufnr, silent = true, expr = true })
 
-  vim.keymap.set("i", "<CR>", function()
-    if vim.fn["coc#pum#visible"]() == 1 then
-      return vim.fn["coc#pum#confirm"]()
-    end
-    return "<CR>"
-  end, { buffer = bufnr, silent = true, expr = true })
+  vim.keymap.set("i", "<CR>",
+    [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+    { buffer = bufnr, silent = true, expr = true, replace_keycodes = false })
 
   vim.keymap.set("i", "<C-Space>", "coc#refresh()", { buffer = bufnr, silent = true, expr = true })
 end
