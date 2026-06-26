@@ -43,6 +43,8 @@ function M.setup()
   map("n", "<A-j>", ":m .+1<CR>==", "Move line down")
   map("n", "<A-k>", ":m .-2<CR>==", "Move line up")
 
+  map('n', '<leader>mr', 'ciW<C-r>=<C-r>"<CR><Esc>', 'Evaluate expression under cursor')
+
   map("n", "<leader>ptd", "<cmd>TodoTelescope<CR>", "List TODOs")
   map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", "Toggle undotree")
   map("n", "<leader>gs", "<cmd>Git<CR>", "Fugitive status")
